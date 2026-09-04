@@ -16,7 +16,7 @@ import java.util.List;
 public class Pedido {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private long id;
 
     @OneToMany(mappedBy = "pedido")
     private List<ItemPedido> itens;

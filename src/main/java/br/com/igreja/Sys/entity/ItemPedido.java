@@ -1,6 +1,7 @@
 package br.com.igreja.Sys.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -10,13 +11,19 @@ import lombok.Setter;
 public class ItemPedido {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private long id;
 
     @ManyToOne
     private Pedido pedido;
 
+    @NotNull
     @ManyToOne
     private Produto produto;
 
-    private Integer quantidade;
+    @NotNull
+    private long quantidade;
+
+    @NotNull
+    private double precoUnitario;
+
 }
