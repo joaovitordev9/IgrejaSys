@@ -4,6 +4,28 @@
     box-sizing: border-box;
 }
 
+/* button {
+    display: flex;
+    padding: 10px 16px;
+    height: 40px;
+
+    background-color: #222;
+    color: white;
+
+    align-items: center;
+
+    border-radius: 3px;
+    font-size: 14px;
+    font-weight: 500;
+
+    cursor: pointer;
+
+}
+
+button:hover {
+    background-color: #333;
+} */
+
 body {
 
     align-items: center;
@@ -14,6 +36,12 @@ body {
     color: #222;
 
     width: 100%;
+}
+
+.corpo{
+    width: 80%;
+    align-items: center;
+
 }
 
 .barra-navegacao {
@@ -49,13 +77,7 @@ body {
 }
 
 .titulo-pagina {
-
     padding-left: 100px;
-
-    font-size: 30px;
-    font-weight: 600;
-
-    color: #222;
 }
 
 .acoes-produto {
@@ -68,30 +90,55 @@ body {
     background-color: white;
 
     border: 1px solid #ddd;
+
+    display: flex;
+    justify-content: space-start;
+
+    align-items: center;
+}
+
+.botao-criar-produto {
+    display: flex;
+    padding: 10px 16px;
+    height: 40px;
+
+    background-color: #222;
+    color: white;
+
+    align-items: center;
+
+    border-radius: 3px;
+    font-size: 14px;
+    font-weight: 500;
+
+    cursor: pointer;
+
+    margin-left: auto;
+   
+}
+
+.botao-criar-produto:hover {
+    background-color: #333;
 }
 
 
 .filtro {
+
     display: flex;
     flex-direction: column;
 
     gap: 8px;
 
-    max-width: 500px;
+    width: 700px;
 }
 
 
 .titulo-acoes-produto {
     margin-bottom: 10px;
-
-    font-size: 18px;
-    font-weight: 600;
-
-    color: #222;
-}
+} 
 
 
-.filtro label {
+label {
     font-size: 14px;
     font-weight: 500;
 
@@ -99,14 +146,13 @@ body {
 }
 
 
-.filtro input {
+input {
     width: 100%;
-    height: 42px;
+    height: 30px;
 
     padding: 0 12px;
 
     border: 1px solid #ccc;
-    border-radius: 6px;
 
     background-color: white;
 
@@ -115,34 +161,12 @@ body {
     outline: none;
 }
 
+.nomeProduto-filtro {
+    width: 1000px;
+}
 
 .filtro input:focus {
     border-color: #555;
-}
-
-
-.filtro button {
-    width: fit-content;
-
-    margin-top: 8px;
-
-    padding: 10px 18px;
-
-    border: none;
-    border-radius: 6px;
-
-    background-color: #222;
-    color: white;
-
-    font-size: 14px;
-    font-weight: 500;
-
-    cursor: pointer;
-}
-
-
-.filtro button:hover {
-    background-color: #333;
 }
 
 .tabela-produtos {
@@ -163,7 +187,11 @@ thead {
     background-color: #f5f5f5;
 }
 
-
+.coluna-acoes {
+    width: 10%;
+    text-align: center;
+    align-items: center;
+}
 
 th,
 td {
@@ -189,4 +217,175 @@ td {
 
 tbody tr:hover {
     background-color: #fafafa;
+}
+
+.btn-alterar {
+    background-color: #f5c542;
+    color: #3d3200;
+    border: none;
+    border-radius: 3px;
+    padding: 7px 12px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.btn-alterar:hover {
+    background-color: #e5b52f;
+}
+
+.btn-excluir {
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    padding: 7px 12px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.btn-excluir:hover {
+    background-color: #c0392b;
+}
+
+/* Fundo que cobre a tela */
+.modal {
+    position: fixed;
+    inset: 0;
+
+    background-color: rgba(0, 0, 0, 0.4);
+
+    /* O próprio modal também pode ser ligado/desligado */
+    display: none;
+
+    justify-content: center;
+    align-items: center;
+}
+
+
+/* Modal de criar/alterar produto */
+.modal-info-produto {
+    width: 400px;
+    padding: 30px;
+
+    background-color: white;
+    border-radius: 10px;
+
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+
+    display: none;
+    flex-direction: column;
+
+}
+
+
+/* Modal de excluir */
+.modal-excluir {
+    width: 400px;
+    padding: 30px;
+
+    background-color: white;
+    border-radius: 10px;
+
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+
+ 
+    display: none;  
+    flex-direction: column;
+}
+
+
+/* Títulos */
+.modal-info-produto h2,
+.modal-excluir h2 {
+    margin-top: 0;
+    margin-bottom: 20px;
+}
+
+
+.modal-info-produto label {
+    margin-bottom: 6px;
+
+    font-size: 14px;
+    color: #444;
+}
+
+.modal-info-produto input {
+    height: 40px;
+    padding: 0 10px;
+
+    margin-bottom: 15px;
+
+    border: 1px solid #ccc;
+    border-radius: 6px;
+
+    font-size: 14px;
+}
+
+.modal-info-produto input:focus {
+    outline: none;
+    border-color: #555;
+}
+
+
+/* Mensagem do modal de exclusão */
+.modal-excluir p {
+    margin-bottom: 20px;
+
+    color: #555;
+}
+
+
+/* Área dos botões */
+.modal-acoes {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+
+    margin-top: 20px;
+}
+
+
+/* Botões */
+.btn {
+    padding: 10px 16px;
+
+    border: none;
+    border-radius: 3px;
+
+    font-size: 14px;
+    font-weight: 500;
+
+    cursor: pointer;
+}
+
+
+.btn-cancelar {
+    background-color: #eee;
+    color: #333;
+}
+
+.btn-cancelar:hover {
+    background-color: #ddd;
+}
+
+
+.btn-criar {
+    background-color: #222;
+    color: white;
+}
+
+.btn-criar:hover {
+    background-color: #333;
+}
+
+
+.btn-excluir {
+    background-color: #e74c3c;
+    color: white;
+}
+
+.btn-excluir:hover {
+    background-color: #c0392b;
 }

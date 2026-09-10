@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Produtos</title>
     <link rel="stylesheet" href="../static/style.css">
 </head>
+
 <body>
     <nav class="barra-navegacao">
         <div class="botao-inicio">
@@ -14,61 +16,96 @@
         <div class="botao-voltar">
             Voltar
         </div>
-        <div class="titulo-pagina">
+        <h2 class="titulo-pagina">
             Produtos
+        </h2>
+
+        <div class="botao-criar-produto">
+            Novo Produto
         </div>
     </nav>
 
-    <section class="acoes-produto">
 
-        <form class="filtro">
-
-            <div class="titulo-acoes-produto">
-                Buscar por produto
+    <div class="corpo">
+        <section class="acoes-produto">
+            <form class="filtro">
+                <h2 class="titulo-acoes-produto">
+                    Buscar por produto
+                </h2>
+                <label for="nomeProduto-filtro">
+                    Nome do produto:
+                </label>
+                <input type="text" id="nomeProduto-filtro" name="nomeProduto-filtro">
+            </form>
+        
+        </section>
+        <table class="tabela-produtos">
+            <thead>
+                <tr>
+                    <th class="coluna-acoes">Ações</th>
+                    <th class="nome">Nome</th>
+                    <th class="preco">Preço</th>
+                </tr>
+            </thead>
+            <tbody id="tabela-produtos">
+                <tr>
+                    <td class="coluna-acoes">
+                        <button class="btn-alterar">Alterar</button>
+                        <button class="btn-excluir">Excluir</button>
+                    </td>
+                    <td>Coxinha</td>
+                    <td>R$ 6,00</td>
+                </tr>
+                <tr>
+                    <td class="coluna-acoes">
+                        <button class="btn-alterar">Alterar</button>
+                        <button class="btn-excluir">Excluir</button>
+                    </td>
+                    <td>Refrigerante</td>
+                    <td>R$ 5,00</td>
+                </tr>
+                <tr>
+                    <td class="coluna-acoes">
+                        <button class="btn-alterar">Alterar</button>
+                        <button class="btn-excluir">Excluir</button>
+                    </td>
+                    <td>Pastel</td>
+                    <td>R$ 7,00</td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="modal">
+            <div class="modal-info-produto">
+                <h2>Criar produto</h2>
+                <label for="nome">Nome</label>
+                <input type="text" id="nome">
+                <label for="preco">Preço</label>
+                <input type="number" id="preco">
+                <div class="modal-acoes">
+                    <button class="btn btn-cancelar">Cancelar</button>
+                    <button class="btn btn-criar">Criar produto</button>
+                </div>
             </div>
+            <div class="modal-excluir">
+                <h2>Excluir produto</h2>
+                <p id="mensagem-exclusao">
+                    Tem certeza que deseja excluir este produto?
+                </p>
+                <div class="modal-acoes">
+                    <button class="btn btn-cancelar" id="btn-cancelar-exclusao">
+                        Cancelar
+                    </button>
+                    <button class="btn btn-excluir" id="btn-confirmar-exclusao">
+                        Excluir
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
 
-            <label for="nomeProduto-filtro">
-                Nome do produto:
-            </label>
 
-            <input
-                type="text"
-                id="nomeProduto-filtro"
-                name="nomeProduto-filtro"
-            >
 
-        </form>
 
-    </section>
-
-    <table class="tabela-produtos">
-
-        <thead>
-            <tr>
-                <th>Nome</th>
-                <th>Preço</th>
-            </tr>
-        </thead>
-
-        <tbody id="tabela-produtos">
-            <tr>
-                <td>Coxinha</td>
-                <td>R$ 6,00</td>
-            </tr>
-
-            <tr>
-                <td>Refrigerante</td>
-                <td>R$ 5,00</td>
-            </tr>
-
-            <tr>
-                <td>Pastel</td>
-                <td>R$ 7,00</td>
-            </tr>
-        </tbody>
-
-    </table>    
-
-    
 </body>
+
 </html>
