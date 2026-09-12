@@ -10,15 +10,23 @@ import br.com.igreja.Sys.entity.Pedido;
 import br.com.igreja.Sys.entity.Produto;
 import br.com.igreja.Sys.repository.PedidoRepository;
 import br.com.igreja.Sys.repository.ProdutoRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+
 
 @Service
 public class PedidoService {
 
     PedidoRepository pedidoRepository;
     ProdutoRepository produtoRepository;
+
+    public PedidoService(PedidoRepository pedidoRepository,
+                         ProdutoRepository produtoRepository) {
+        this.pedidoRepository = pedidoRepository;
+        this.produtoRepository = produtoRepository;
+    }
 
     public List<PedidoResponse> listar(){
 
