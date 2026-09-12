@@ -16,10 +16,11 @@ import java.util.List;
 @RequestMapping("/pedidos")
 public class PedidoController {
 
-    private PedidoService pedidoService;
+    private final PedidoService pedidoService;
 
     public PedidoController(PedidoService pedidoService) {
         this.pedidoService = pedidoService;
+
     }
 
     @GetMapping
@@ -27,8 +28,24 @@ public class PedidoController {
         return pedidoService.listar();
     }
 
+    @GetMapping("/{Id}")
+    public PedidoResponse listarId(@PathVariable long Id){
+        return pedidoService.buscarPorId(Id);
+    }
+
     @PostMapping
     public PedidoResponse cadastrar(@RequestBody PedidoRequest pedidoRequest){
         return pedidoService.cadastrar(pedidoRequest);
     }
+
+    @PutMapping("/{Id}")
+    public PedidoResponse alterar(@PathVariable long Id, @RequestBody PedidoRequest pedidoRequest){
+        return pedidoService.alterar(Id, pedidoRequest);
+    }
+
+    @DeleteMapping("/{Id}")
+    public void deletar(@PathVariable long Id){
+        pedidoService.deletar(Id);
+    }
+
 }
