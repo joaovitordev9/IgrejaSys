@@ -12,12 +12,12 @@
 
 <body>
     <nav class="barra-navegacao">
-        <button class="botao-inicio">
+        <div class="botao-inicio">
             Início
-        </button>
-        <button class="botao-voltar">
+        </div>
+        <div class="botao-voltar">
             Voltar
-        </button>
+        </div>
         <h2 class="titulo-pagina">
             Produtos
         </h2>
@@ -50,9 +50,9 @@
                     <th class="coluna-preco">Preço</th>
                 </tr>
             </thead>
-            <tbody id="tabela-produtos">
+            <tbody id="tabelaProdutos">
 
-                <tr>
+                <!-- <tr>
                     <td class="coluna-acoes">
                         <button class="btn-alterar" id="btnTabelaProdutosAlterar" onclick="" data-id="01">Alterar</button>
                         <button class="btn-excluir" id="btnTabelaProdutosExcluir" onclick="" data-id="01">Excluir</button>
@@ -60,21 +60,22 @@
                     <td class="coluna-codigo">01</td>
                     <td>Coxinha</td>
                     <td>R$ 6,00</td>
-                </tr>
+                </tr> -->
             </tbody>
         </table>
         <div class="modal" id="modalPrincipalProdutos">
             <div class="modal-info-produto" id="modalInfoProduto">
-                <h2 id="modalInfoProdutoTitulo">Criar produto</h2>
+                <h2 id="modalInfoProdutoTitulo"></h2>
                 <label for="nome">Nome</label>
-                <input type="text" id="nome">
+                <input type="text" id="nomeProduto">
                 <label for="preco">Preço</label>
-                <input type="number" id="preco">
+                <input type="number" id="precoProduto">
                 <div class="modal-acoes">
                     <button class="btn btn-cancelar" id="btnModalInfoProdutosCancelar">Cancelar</button>
-                    <button class="btn btn-criar" id="btnModalInfoProdutosCriar">Criar produto</button>
+                    <button class="btn btn-criar" id="btnModalInfoProdutosSalvar" data-acao="">Salvar</button>
                 </div>
             </div>
+
             <div class="modal-excluir" id="modalProdutosExcluir">
                 <h2>Excluir produto</h2>
                 <p id="mensagemExclusao">

@@ -277,6 +277,11 @@ tbody tr:hover {
     background-color: #ddd;
 }
 
+.btn-cancelar:focus {
+    outline: 2px solid #999;
+    outline-offset: 2px;
+}
+
 .btn-alterar {
     background-color: #f5c542;
     color: #3d3200;

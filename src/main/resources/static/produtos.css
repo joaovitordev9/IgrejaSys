@@ -13,6 +13,61 @@
     align-items: center;
 }
 
+.acoes-produto {
+    
+    margin: 20px auto 0;
+    width: 95%;
+
+    padding: 20px;
+
+    background-color: white;
+
+    border: 1px solid #ddd;
+
+    display: flex;
+    justify-content: space-start;
+
+    align-items: center;
+}
+
+.botao-criar-produto {
+    display: flex;
+    padding: 10px 16px;
+    height: 40px;
+
+    background-color: #222;
+    color: white;
+
+    align-items: center;
+
+    border-radius: 3px;
+    font-size: 14px;
+    font-weight: 500;
+
+    cursor: pointer;
+
+    margin-left: auto;
+   
+}
+
+.botao-criar-produto:hover {
+    background-color: #333;
+}
+
+.filtro {
+
+    display: flex;
+    flex-direction: column;
+
+    gap: 8px;
+
+    width: 700px;
+}
+
+.titulo-acoes-produto {
+    margin-bottom: 10px;
+} 
+
 .filtro {
     display: flex;
     flex-direction: column;
