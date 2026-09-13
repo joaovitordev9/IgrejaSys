@@ -10,17 +10,17 @@
 
 <body>
     <nav class="barra-navegacao">
-        <div class="botao-inicio">
+        <button class="botao-inicio">
             Início
-        </div>
-        <div class="botao-voltar">
+        </button>
+        <button class="botao-voltar">
             Voltar
-        </div>
+        </button>
         <h2 class="titulo-pagina">
             Produtos
         </h2>
 
-        <div class="botao-criar-produto">
+        <div class="botao-criar-produto" id="btnNovoProduto">
             Novo Produto
         </div>
     </nav>
@@ -43,59 +43,45 @@
             <thead>
                 <tr>
                     <th class="coluna-acoes">Ações</th>
-                    <th class="nome">Nome</th>
-                    <th class="preco">Preço</th>
+                    <th class="coluna-codigo">Código</th>
+                    <th class="coluna-nome">Nome</th>
+                    <th class="coluna-preco">Preço</th>
                 </tr>
             </thead>
             <tbody id="tabela-produtos">
                 <tr>
                     <td class="coluna-acoes">
-                        <button class="btn-alterar">Alterar</button>
-                        <button class="btn-excluir">Excluir</button>
+                        <button class="btn-alterar" id="btnTabelaProdutosAlterar" onclick="" data-id="01"="">Alterar</button>
+                        <button class="btn-excluir" id="btnTabelaProdutosExcluir" onclick="" data-id="01">Excluir</button>
                     </td>
+                    <td class="coluna-codigo">01</td>
                     <td>Coxinha</td>
                     <td>R$ 6,00</td>
                 </tr>
-                <tr>
-                    <td class="coluna-acoes">
-                        <button class="btn-alterar">Alterar</button>
-                        <button class="btn-excluir">Excluir</button>
-                    </td>
-                    <td>Refrigerante</td>
-                    <td>R$ 5,00</td>
-                </tr>
-                <tr>
-                    <td class="coluna-acoes">
-                        <button class="btn-alterar">Alterar</button>
-                        <button class="btn-excluir">Excluir</button>
-                    </td>
-                    <td>Pastel</td>
-                    <td>R$ 7,00</td>
-                </tr>
             </tbody>
         </table>
-        <div class="modal">
-            <div class="modal-info-produto">
-                <h2>Criar produto</h2>
+        <div class="modal" id="modalPrincipalProdutos">
+            <div class="modal-info-produto" id="modalInfoProduto">
+                <h2 id="modalInfoProdutoTitulo">Criar produto</h2>
                 <label for="nome">Nome</label>
                 <input type="text" id="nome">
                 <label for="preco">Preço</label>
                 <input type="number" id="preco">
                 <div class="modal-acoes">
-                    <button class="btn btn-cancelar">Cancelar</button>
-                    <button class="btn btn-criar">Criar produto</button>
+                    <button class="btn btn-cancelar" id="btnModalInfoProdutosCancelar">Cancelar</button>
+                    <button class="btn btn-criar" id="btnModalInfoProdutosCriar">Criar produto</button>
                 </div>
             </div>
-            <div class="modal-excluir">
+            <div class="modal-excluir" id="modalProdutosExcluir">
                 <h2>Excluir produto</h2>
-                <p id="mensagem-exclusao">
+                <p id="mensagemExclusao">
                     Tem certeza que deseja excluir este produto?
                 </p>
                 <div class="modal-acoes">
-                    <button class="btn btn-cancelar" id="btn-cancelar-exclusao">
+                    <button class="btn btn-cancelar" id="btnModalExcluirCancelar">
                         Cancelar
                     </button>
-                    <button class="btn btn-excluir" id="btn-confirmar-exclusao">
+                    <button class="btn btn-excluir" id="btnModalExcluirConfirmar">
                         Excluir
                     </button>
                 </div>
@@ -103,9 +89,7 @@
         </div>
     </div>
 
-
-
-
+    <script src="../static/produtos.js"></script>
 </body>
 
 </html>

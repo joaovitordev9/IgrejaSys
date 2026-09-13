@@ -4,30 +4,8 @@
     box-sizing: border-box;
 }
 
-/* button {
-    display: flex;
-    padding: 10px 16px;
-    height: 40px;
-
-    background-color: #222;
-    color: white;
-
-    align-items: center;
-
-    border-radius: 3px;
-    font-size: 14px;
-    font-weight: 500;
-
-    cursor: pointer;
-
-}
-
-button:hover {
-    background-color: #333;
-} */
-
 body {
-
+    
     align-items: center;
     font-family: Arial, sans-serif;
     font-size: 16px;
@@ -40,8 +18,7 @@ body {
 
 .corpo{
     width: 80%;
-    align-items: center;
-
+    margin: auto;
 }
 
 .barra-navegacao {
@@ -162,7 +139,7 @@ input {
 }
 
 .nomeProduto-filtro {
-    width: 1000px;
+    width: 100%;
 }
 
 .filtro input:focus {
@@ -189,7 +166,13 @@ thead {
 
 .coluna-acoes {
     width: 10%;
+    min-width: 175px;
     text-align: center;
+    align-items: center;
+}
+.coluna-codigo {
+    max-width: 50px;
+    text-align: left;
     align-items: center;
 }
 
@@ -369,7 +352,6 @@ tbody tr:hover {
 .btn-cancelar:hover {
     background-color: #ddd;
 }
-
 
 .btn-criar {
     background-color: #222;
