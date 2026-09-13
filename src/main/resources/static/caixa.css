@@ -1,0 +1,200 @@
+.corpo {
+    display: flex;
+
+    gap: 25px;
+
+    width: 95%;
+
+    margin: 20px auto;
+}
+
+.lista-produtos {
+    flex: 3;
+
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+
+    align-content: flex-start;
+}
+.produtos {
+    flex: 1;
+}
+.produto {
+    width: 180px;
+    height: 100px;
+
+    background-color: white;
+
+    border: 1px solid #ddd;
+    border-radius: 8px;
+
+    padding: 15px;
+
+    cursor: pointer;
+
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+}
+
+.produto:hover {
+    border-color: #999;
+
+    transform: translateY(-2px);
+
+    transition: 0.2s;
+}
+
+.pedido-atual {
+    flex: 1;
+
+    background-color: white;
+
+    border: 1px solid #ddd;
+    border-radius: 8px;
+
+    padding: 20px;
+
+    min-height: 500px;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.pedido {
+    width: 350px;
+
+    background-color: white;
+
+    border: 1px solid #ddd;
+    border-radius: 8px;
+
+    padding: 20px;
+    min-height: 500px;
+
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+}
+.pedido h2 {
+    font-size: 24px;
+    margin-bottom: 25px;
+}
+
+.itens-pedido {
+    flex: 1;
+
+    margin-top: 25px;
+    margin-bottom: 25px;
+}
+
+.total-pedido {
+    margin-top: 20px;
+
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.btn-finalizar {
+    margin-top: 20px;
+
+    padding: 12px;
+
+    border: none;
+    border-radius: 5px;
+
+    background-color: #222;
+    color: white;
+
+    cursor: pointer;
+}
+
+.btn-finalizar:hover {
+    background-color: #333;
+}
+.categoria {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+.titulo-categoria {
+    margin-top: 40px;
+    margin-bottom: 15px;
+}
+
+.titulo-categoria:first-child {
+    margin-top: 0;
+}
+.controle-quantidade {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.item-pedido {
+    padding: 15px;
+
+    font-size: 17px;
+
+    margin-bottom: 12px;
+}
+
+.btn-quantidade {
+    width: 32px;
+    height: 32px;
+
+
+    border: 1px solid #ccc;
+    border-radius: 4px;
+
+    background-color: white;
+
+    font-size: 18px;
+    font-weight: bold;
+
+    cursor: pointer;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.btn-quantidade:hover {
+    background-color: #f2f2f2;
+}
+
+.quantidade {
+    min-width: 20px;
+
+    text-align: center;
+    font-size: 16px;
+
+
+    font-weight: bold;
+}
+.opcoes-pagamento {
+    display: flex;
+    gap: 15px;
+
+    margin-top: 10px;
+    margin-bottom: 15px;
+
+    align-items: center;
+}
+.pagamento {
+    margin-top: 25px;
+    padding-top: 20px;
+}
+
+.pagamento h3 {
+    margin-bottom: 12px;
+}
+
+
+.opcoes-pagamento {
+    gap: 22px;
+}
+
+.opcoes-pagamento label {
+    font-size: 14px;
+}
+
+.area-troco {
+    display: none;
+}

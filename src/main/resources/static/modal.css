@@ -1,0 +1,81 @@
+.modal {
+    position: fixed;
+    inset: 0;
+
+    background-color: rgba(0, 0, 0, 0.4);
+
+    display: none;
+
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-info-produto {
+    width: 400px;
+    padding: 30px;
+
+    background-color: white;
+    border-radius: 10px;
+
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+
+    display: none;
+    flex-direction: column;
+}
+
+.modal-excluir {
+    width: 400px;
+    padding: 30px;
+
+    background-color: white;
+    border-radius: 10px;
+
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+
+    display: none;
+    flex-direction: column;
+}
+
+.modal-info-produto h2,
+.modal-excluir h2 {
+    margin-top: 0;
+    margin-bottom: 20px;
+}
+
+.modal-info-produto label {
+    margin-bottom: 6px;
+
+    font-size: 14px;
+    color: #444;
+}
+
+.modal-info-produto input {
+    height: 40px;
+    padding: 0 10px;
+
+    margin-bottom: 15px;
+
+    border: 1px solid #ccc;
+    border-radius: 6px;
+
+    font-size: 14px;
+}
+
+.modal-info-produto input:focus {
+    outline: none;
+    border-color: #555;
+}
+
+.modal-excluir p {
+    margin-bottom: 20px;
+    color: #555;
+}
+
+.modal-acoes {
+    display: flex;
+    justify-content: flex-end;
+
+    gap: 10px;
+
+    margin-top: 20px;
+}
