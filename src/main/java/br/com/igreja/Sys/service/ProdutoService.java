@@ -37,6 +37,18 @@ public class ProdutoService {
         return ProdutoResponse.fromEntity(produto);
     }
 
+    public ProdutoResponse alterar(long id,ProdutoRequest produtoRequest){
+        Produto produto = produtoRepository.findById(id).orElseThrow(() -> new RuntimeException("Produto não encontrado"));
+
+        produto.setNome(produtoRequest.getNome());
+        produto.setDescricao(produtoRequest.getDescricao());
+        produto.setPreco(produtoRequest.getPreco());
+
+        produto = produtoRepository.save(produto);
+
+        return ProdutoResponse.fromEntity(produto);
+    }
+
     public void deletar(long id){
         produtoRepository.deleteById(id);
     }

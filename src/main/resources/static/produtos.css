@@ -1,0 +1,81 @@
+.acoes-produto {
+
+    margin: 20px auto 0;
+    width: 95%;
+
+    padding: 20px;
+
+    background-color: white;
+
+    border: 1px solid #ddd;
+
+    display: flex;
+    align-items: center;
+}
+
+.filtro {
+    display: flex;
+    flex-direction: column;
+
+    gap: 8px;
+
+    width: 700px;
+}
+
+.titulo-acoes-produto {
+    margin-bottom: 10px;
+}
+
+.nomeProduto-filtro {
+    width: 1000px;
+}
+
+.filtro input:focus {
+    border-color: #555;
+}
+
+.tabela-produtos {
+    width: 95%;
+
+    margin: auto;
+
+    overflow: hidden;
+
+    background-color: white;
+}
+
+table {
+    border-collapse: collapse;
+}
+
+thead {
+    background-color: #f5f5f5;
+}
+
+.coluna-acoes {
+    width: 10%;
+    text-align: center;
+    align-items: center;
+}
+
+th,
+td {
+    padding: 12px 16px;
+
+    text-align: left;
+
+    border-bottom: 1px solid #e5e5e5;
+}
+
+th {
+    font-weight: 600;
+    color: #444;
+}
+
+td {
+    color: #222;
+}
+
+tbody tr:hover {
+    background-color: #fafafa;
+}
