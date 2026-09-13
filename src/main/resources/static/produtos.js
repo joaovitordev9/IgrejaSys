@@ -204,5 +204,13 @@ tabelaProdutos.addEventListener("click", function (evento) {
     }
 });
 
+document.addEventListener("keydown", function (evento) {
+    if (evento.ctrlKey && evento.key === "+") {
+        evento.preventDefault();
+        btnModalInfoProdutosSalvar.dataset.acao = "criar";
+        abreModalInfoProduto("Novo Produto");
+    }
+});
+
 carregarProdutosHTML();
 
