@@ -1,0 +1,14 @@
+
+.nomeFesta-filtro {
+    width: 1000px;
+}
+
+.filtro input:focus {
+    border-color: #555;
+}
+
+.coluna-acoes {
+    width: 10%;
+    text-align: center;
+    align-items: center;
+}

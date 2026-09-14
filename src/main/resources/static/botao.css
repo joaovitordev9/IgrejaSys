@@ -1,0 +1,102 @@
+/* botoes */
+
+.botao-voltar,
+.botao-inicio {
+    padding: 8px 12px;
+    border-radius: 3px;
+    color: #444;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+.botao-voltar:hover,
+.botao-inicio:hover {
+    background-color: #f2f2f2;
+}
+
+.btn,
+.botao-principal {
+    height: 40px;
+    padding: 0 16px;
+    border: none;
+    border-radius: 3px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    white-space: nowrap;
+}
+
+.botao-principal {
+    background-color: #222;
+    color: white;
+    margin-left: auto;
+}
+
+.botao-principal:hover {
+    background-color: #333;
+}
+
+.btn-alterar {
+    background-color: #f5c542;
+    color: #3d3200;
+    border: none;
+    border-radius: 3px;
+    padding: 7px 12px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.btn-alterar:hover {
+    background-color: #e5b52f;
+}
+
+.btn-excluir {
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    padding: 7px 12px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.btn-excluir:hover {
+    background-color: #c0392b;
+}
+
+.btn-excluir {
+    background-color: #e74c3c;
+    color: white;
+}
+
+.btn-excluir:hover {
+    background-color: #c0392b;
+}
+
+.btn-criar {
+    background-color: #222;
+    color: white;
+}
+
+.btn-criar:hover {
+    background-color: #333;
+}
+
+.btn-cancelar {
+    background-color: #eee;
+    color: #333;
+}
+
+.btn-cancelar:hover {
+    background-color: #ddd;
+}
+
+.btn-cancelar:focus {
+    outline: 2px solid #999;
+    outline-offset: 2px;
+}

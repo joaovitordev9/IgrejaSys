@@ -4,7 +4,7 @@ let proximoId = 4;
 const modalPrincipalProdutos = document.getElementById("modalPrincipalProdutos");
 
 const btnNovoProduto = document.getElementById("btnNovoProduto");
-const modalInfoProuto = document.getElementById("modalInfoProduto");
+const modalInfoProduto = document.getElementById("modalInfoProduto");
 const modalInfoProdutoTitulo = document.getElementById("modalInfoProdutoTitulo");
 const modalProdutosExcluir = document.getElementById("modalProdutosExcluir");
 const btnModalExcluirConfirmar = document.getElementById("btnModalExcluirConfirmar");
@@ -66,14 +66,14 @@ function abreModalInfoProduto(titulo) {
 
     modalInfoProdutoTitulo.textContent = titulo;
     modalPrincipalProdutos.style.display = "flex";
-    modalInfoProuto.style.display = "flex";
+    modalInfoProduto.style.display = "flex";
 
     inputNome.focus();
 }
 
 function fechaModalInfoProduto() {
     modalPrincipalProdutos.style.display = "none";
-    modalInfoProuto.style.display = "none";
+    modalInfoProduto.style.display = "none";
 }
 
 function abreModalExcluirProduto(titulo) {
@@ -207,9 +207,14 @@ tabelaProdutos.addEventListener("click", function (evento) {
 document.addEventListener("keydown", function (evento) {
     if (evento.ctrlKey && evento.key === "+") {
         evento.preventDefault();
-        btnModalInfoProdutosSalvar.dataset.acao = "criar";
-        abreModalInfoProduto("Novo Produto");
+        btnNovoProduto.click();
     }
+
+    if (evento.key == "Escape") {
+        btnModalInfoProdutosCancelar.click();
+        btnModalExcluirCancelar.click();
+    }
+ 
 });
 
 carregarProdutosHTML();
