@@ -22,25 +22,9 @@ const tabelaProdutos = document.getElementById("tabelaProdutos");
 
 
 
-let produtos = [
-    {
-        id: 1,
-        nome: "Coca-Cola",
-        preco: 6.50
-    },
-    {
-        id: 2,
-        nome: "Arroz",
-        preco: 25.00
-    },
-    {
-        id: 3,
-        nome: "Feijão tropeiro",
-        preco: 8.50
-    }
-];
+let produtos = [];
 
-function carregarProdutosHTML() {
+function renderizarProdutos(){
 
     tabelaProdutos.innerHTML = "";
 
@@ -48,18 +32,33 @@ function carregarProdutosHTML() {
 
         let idFormatado = produtos[i].id.toString().padStart(2, "0");
         let precoFormatado = produtos[i].preco.toFixed(2);
+
         tabelaProdutos.innerHTML += `
-            <tr>
-                <td class="coluna-acoes">
-                    <button class="btn-alterar" data-id="${produtos[i].id}">Alterar</button>
-                    <button class="btn-excluir" data-id="${produtos[i].id}">Excluir</button>
-                </td>
-                <td class="coluna-codigo">${idFormatado}</td>
-                <td>${produtos[i].nome}</td>
-                <td>R$ ${precoFormatado}</td>
-            </tr>
-        `
+                    <tr>
+                        <td class="coluna-acoes">
+                            <button class="btn-alterar" data-id="${produtos[i].id}">Alterar</button>
+                            <button class="btn-excluir" data-id="${produtos[i].id}">Excluir</button>
+                        </td>
+                        <td class="coluna-codigo">${idFormatado}</td>
+                        <td>${produtos[i].nome}</td>
+                        <td>R$ ${precoFormatado}</td>
+                    </tr>
+                `;
     }
+}
+
+function carregarProdutosHTML() {
+    fetch("http://172.20.10.2:8080/produtos")
+        .then(response => response.json())
+        .then(dados => {
+
+            produtos = dados;
+
+            renderizarProdutos();
+        })
+        .catch(erro => {
+            console.log(erro);
+        });
 }
 
 function abreModalInfoProduto(titulo) {
@@ -94,12 +93,23 @@ function criarProduto() {
 
 
     const novoProduto = {
-        id: proximoId,
         nome: inputNome.value,
         preco: parseFloat(inputPreco.value)
     }
 
-    produtos.push(novoProduto);
+    fetch("http://172.20.10.2:8080/produtos",{
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(novoProduto)
+    }).then(function(response){
+        return response.json();
+    }).then(function(produtoCriado){
+        produtos.push(produtoCriado);
+        renderizarProdutos();
+    })
+
 
     limparCamposModalInfoProdutos();
 
@@ -133,12 +143,20 @@ function alterarProduto() {
 function excluirProduto(){
     const id = btnModalExcluirConfirmar.dataset.idProdutoExcluido;
 
-    const indice = produtos.findIndex(function (produto) {
+    fetch("http://172.20.10.2:8080/produtos/" + id,{
+        method: "DELETE"
+    }).then(function (response){
+        if (!response.ok){
+            throw new Error("Erro ao excluir produto");
+        }
+
+        const indice = produtos.findIndex(function (produto) {
             return produto.id == id;
         });
-    console.log(id);
-    produtos.splice(indice, 1);
-    carregarProdutosHTML();
+
+        produtos.splice(indice, 1);
+        renderizarProdutos();
+    })
 };
 
 
@@ -168,7 +186,6 @@ btnModalInfoProdutosSalvar.addEventListener("click", function() {
         alterarProduto();
     }
     fechaModalInfoProduto();
-    carregarProdutosHTML();
 })
 
 btnModalExcluirCancelar.addEventListener("click", function() {

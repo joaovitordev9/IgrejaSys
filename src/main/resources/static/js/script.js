@@ -10,7 +10,7 @@ function criarNavegacao(nomeTela) {
 
             <div class="navegacao-esquerda">
 
-                <a href="index.html" class="btn-inicio">
+                <a href="templates/index.html" class="btn-inicio">
                     <i data-lucide="arrow-left" ></i> 
                     Início
                 </a>
@@ -26,7 +26,7 @@ function criarNavegacao(nomeTela) {
             <div class="navegacao-direita">
 
                 <a
-                    href="index.html"
+                    href="templates/index.html"
                     class="btn-inicio"
                 >
                     🏠 Início
