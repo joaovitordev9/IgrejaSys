@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Produtos</title>
+    <link rel="stylesheet" href="../static/style.css">
+    <link rel="stylesheet" href="../static/produtos.css">
+    <link rel="stylesheet" href="../static/modal.css">
+    <link rel="stylesheet" href="../static/botao.css">
+</head>
+
+<body>
+    <nav class="barra-navegacao">
+        <div class="botao-inicio">
+            Início
+        </div>
+        <div class="botao-voltar">
+            Voltar
+        </div>
+        <h2 class="titulo-pagina">
+            Produtos
+        </h2>
+
+        <div class="botao-principal" id="btnNovoProduto">
+            Novo Produto
+        </div>
+    </nav>
+
+
+    <div class="corpo">
+        <section class="acoes-tabela">
+            <form class="filtro">
+                <h2 class="titulo-acoes-tabela">
+                    Buscar por produto
+                </h2>
+                <label for="nomeProduto-filtro">
+                    Nome do produto:
+                </label>
+                <input type="text" id="nomeProduto-filtro" name="nomeProduto-filtro">
+            </form>
+        
+        </section>
+        <table class="tabela-produtos">
+            <thead>
+                <tr>
+                    <th class="coluna-acoes">Ações</th>
+                    <th class="coluna-codigo">Código</th>
+                    <th class="coluna-nome">Nome</th>
+                    <th class="coluna-preco">Preço</th>
+                </tr>
+            </thead>
+            <tbody id="tabelaProdutos">
+
+                <!-- <tr>
+                    <td class="coluna-acoes">
+                        <button class="btn-alterar" id="btnTabelaProdutosAlterar" onclick="" data-id="01">Alterar</button>
+                        <button class="btn-excluir" id="btnTabelaProdutosExcluir" onclick="" data-id="01">Excluir</button>
+                    </td>
+                    <td class="coluna-codigo">01</td>
+                    <td>Coxinha</td>
+                    <td>R$ 6,00</td>
+                </tr> -->
+            </tbody>
+        </table>
+        <div class="modal" id="modalPrincipalProdutos">
+            <div class="modal-info-produto" id="modalInfoProduto">
+                <h2 id="modalInfoProdutoTitulo"></h2>
+                <label for="nome">Nome</label>
+                <input type="text" id="nomeProduto">
+                <label for="preco">Preço</label>
+                <input type="number" id="precoProduto">
+                <div class="modal-acoes">
+                    <button class="btn btn-cancelar" id="btnModalInfoProdutosCancelar">Cancelar</button>
+                    <button class="btn btn-criar" id="btnModalInfoProdutosSalvar" data-acao="">Salvar</button>
+                </div>
+            </div>
+
+            <div class="modal-excluir" id="modalProdutosExcluir">
+                <h2>Excluir produto</h2>
+                <p id="mensagemExclusao">
+                    Tem certeza que deseja excluir este produto?
+                </p>
+                <div class="modal-acoes">
+                    <button class="btn btn-cancelar" id="btnModalExcluirCancelar">
+                        Cancelar
+                    </button>
+                    <button class="btn btn-excluir" id="btnModalExcluirConfirmar">
+                        Excluir
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../static/produtos.js"></script>
+</body>
+
+</html>
