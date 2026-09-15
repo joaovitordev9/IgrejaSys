@@ -13,8 +13,20 @@
     text-align: center;
     align-items: center;
 }
+
 .coluna-codigo {
-    max-width: 50px;
+    width: 10%;
+    text-align: left;
+    align-items: center;
+}
+
+.coluna-nome {
+    width: 50%;
+    text-align: left;
+    align-items: center;
+}
+.coluna-preco {
+    width: 30%;
     text-align: left;
     align-items: center;
 }

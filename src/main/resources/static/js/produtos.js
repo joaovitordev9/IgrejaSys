@@ -20,41 +20,44 @@ const btnTabelaProdutosExcluir = document.getElementById("btnTabelaProdutosExclu
 
 const tabelaProdutos = document.getElementById("tabelaProdutos");
 
+const nomeProdutoFiltro = document.getElementById("nomeProdutoFiltro");
+
 
 
 let produtos = [];
 
-function renderizarProdutos(){
+function renderizarProdutos(listaProdutos){
 
     tabelaProdutos.innerHTML = "";
 
-    for(let i = 0; i < produtos.length; i++) {
+    for(let i = 0; i < listaProdutos.length; i++) {
+        let produto = listaProdutos[i];
 
-        let idFormatado = produtos[i].id.toString().padStart(2, "0");
-        let precoFormatado = produtos[i].preco.toFixed(2);
+        let idFormatado = produto.id.toString().padStart(2, "0");
+        let precoFormatado = produto.preco.toFixed(2);
 
         tabelaProdutos.innerHTML += `
                     <tr>
                         <td class="coluna-acoes">
-                            <button class="btn-alterar" data-id="${produtos[i].id}">Alterar</button>
-                            <button class="btn-excluir" data-id="${produtos[i].id}">Excluir</button>
+                            <button class="btn-alterar" data-id="${produto.id}">Alterar</button>
+                            <button class="btn-excluir" data-id="${produto.id}">Excluir</button>
                         </td>
                         <td class="coluna-codigo">${idFormatado}</td>
-                        <td>${produtos[i].nome}</td>
-                        <td>R$ ${precoFormatado}</td>
+                        <td class="coluna-nome">${produto.nome}</td>
+                        <td class="coluna-preco">R$ ${precoFormatado}</td>
                     </tr>
                 `;
     }
 }
 
-function carregarProdutosHTML() {
+function getProdutos() {
     fetch(URL_PRODUTOS)
         .then(response => response.json())
         .then(dados => {
 
             produtos = dados;
 
-            renderizarProdutos();
+            renderizarProdutos(produtos);
         })
         .catch(erro => {
             console.log(erro);
@@ -75,19 +78,19 @@ function fechaModalInfoProduto() {
     modalInfoProduto.style.display = "none";
 }
 
-function abreModalExcluirProduto(titulo) {
+function abreModaldeleteProduto(titulo) {
     modalPrincipalProdutos.style.display = "flex";
     modalProdutosExcluir.style.display = "flex";
 
     btnModalExcluirCancelar.focus();
 }
 
-function fechaModalExcluirProduto() {
+function fechaModaldeleteProduto() {
     modalPrincipalProdutos.style.display = "none";
     modalProdutosExcluir.style.display = "none";
 }
 
-function criarProduto() {
+function postProduto() {
     const inputNome = document.getElementById("nomeProduto");
     const inputPreco = document.getElementById("precoProduto");
 
@@ -107,7 +110,7 @@ function criarProduto() {
         return response.json();
     }).then(function(produtoCriado){
         produtos.push(produtoCriado);
-        renderizarProdutos();
+        renderizarProdutos(produtos);
     })
 
     limparCamposModalInfoProdutos();
@@ -123,7 +126,7 @@ function carregarProdutoModal(produto) {
     inputPreco.value = produto.preco;
 }
 
-function alterarProduto() {
+function putProduto() {
     const id = btnModalInfoProdutosSalvar.dataset.id;
     const produto = produtos.find(function (produto) {
             return produto.id == id;
@@ -134,13 +137,13 @@ function alterarProduto() {
     produto.nome = inputNome.value;
     produto.preco = parseFloat(inputPreco.value);
     limparCamposModalInfoProdutos();
-    carregarProdutosHTML();
+    getProdutos();
 }
 
-function excluirProduto(){
+function deleteProduto(){
     const id = btnModalExcluirConfirmar.dataset.idProdutoExcluido;
-
-    fetch("URL_PRODUTOS" + "/" + id,{
+    console.log(id);
+    fetch(URL_PRODUTOS + "/" + id,{
         method: "DELETE"
     }).then(function (response){
         if (!response.ok){
@@ -152,14 +155,21 @@ function excluirProduto(){
         });
 
         produtos.splice(indice, 1);
-        renderizarProdutos();
+        renderizarProdutos(produtos);
     })
 };
 
+function filtrarProdutos() {
+    const textoBusca = nomeProdutoFiltro.value.toLowerCase();
+
+    const produtosFiltrados = produtos.filter(function (produto) {
+        return produto.nome.toLowerCase().includes(textoBusca) || String(produto.id).includes(textoBusca);
+    });
+
+    renderizarProdutos(produtosFiltrados);
+}
 
 /* EVENTOS */
-
-
 
 btnNovoProduto.addEventListener("click", function() {
     btnModalInfoProdutosSalvar.dataset.acao = "criar";
@@ -177,21 +187,21 @@ btnModalInfoProdutosSalvar.addEventListener("click", function() {
     console.log(acao);
 
     if (acao === "criar") {
-        criarProduto();
+        postProduto();
     }
     if (acao === "alterar") {
-        alterarProduto();
+        putProduto();
     }
     fechaModalInfoProduto();
 })
 
 btnModalExcluirCancelar.addEventListener("click", function() {
-    fechaModalExcluirProduto();
+    fechaModaldeleteProduto();
 })
 
 btnModalExcluirConfirmar.addEventListener("click", function() {
-    excluirProduto();
-    fechaModalExcluirProduto();
+    deleteProduto();
+    fechaModaldeleteProduto();
 })
 
 tabelaProdutos.addEventListener("click", function (evento) {
@@ -200,7 +210,7 @@ tabelaProdutos.addEventListener("click", function (evento) {
 
         const id = evento.target.dataset.id;
         btnModalExcluirConfirmar.dataset.idProdutoExcluido = id;
-        abreModalExcluirProduto();
+        abreModaldeleteProduto();
 
     }
 
@@ -231,5 +241,9 @@ document.addEventListener("keydown", function (evento) {
  
 });
 
-carregarProdutosHTML();
+nomeProdutoFiltro.addEventListener("input", function() {
+    filtrarProdutos();
+})
+
+getProdutos();
 
