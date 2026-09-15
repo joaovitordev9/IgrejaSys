@@ -1,4 +1,4 @@
-let proximoId = 4;
+const URL_PRODUTOS = "/produtos";
 
 
 const modalPrincipalProdutos = document.getElementById("modalPrincipalProdutos");
@@ -48,7 +48,7 @@ function renderizarProdutos(){
 }
 
 function carregarProdutosHTML() {
-    fetch("http://172.20.10.2:8080/produtos")
+    fetch(URL_PRODUTOS)
         .then(response => response.json())
         .then(dados => {
 
@@ -97,7 +97,7 @@ function criarProduto() {
         preco: parseFloat(inputPreco.value)
     }
 
-    fetch("http://172.20.10.2:8080/produtos",{
+    fetch(URL_PRODUTOS,{
         method: "POST",
         headers: {
             "Content-Type": "application/json"
@@ -110,10 +110,7 @@ function criarProduto() {
         renderizarProdutos();
     })
 
-
     limparCamposModalInfoProdutos();
-
-    proximoId++;
 }
 
 function limparCamposModalInfoProdutos() {
@@ -143,7 +140,7 @@ function alterarProduto() {
 function excluirProduto(){
     const id = btnModalExcluirConfirmar.dataset.idProdutoExcluido;
 
-    fetch("http://172.20.10.2:8080/produtos/" + id,{
+    fetch("URL_PRODUTOS" + "/" + id,{
         method: "DELETE"
     }).then(function (response){
         if (!response.ok){
