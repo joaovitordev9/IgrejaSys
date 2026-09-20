@@ -5,6 +5,8 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.math.BigDecimal;
+
 @Entity
 @Getter
 @Setter
@@ -21,9 +23,9 @@ public class ItemPedido {
     private Produto produto;
 
     @NotNull
-    private long quantidade;
+    private Integer quantidade;
 
     @NotNull
-    private double precoUnitario;
+    private BigDecimal precoUnitario;
 
 }

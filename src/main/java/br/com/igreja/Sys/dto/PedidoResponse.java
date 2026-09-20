@@ -20,6 +20,7 @@ public class PedidoResponse {
     private BigDecimal valorTotal;
     private LocalDateTime dataCriacao;
 
+
     public static PedidoResponse fromEntity(Pedido pedido) {
 
         PedidoResponse response = new PedidoResponse();

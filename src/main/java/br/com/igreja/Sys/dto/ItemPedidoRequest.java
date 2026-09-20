@@ -11,6 +11,6 @@ public class ItemPedidoRequest {
     private Long produtoId;
 
     @NotNull
-    private Long quantidade;
+    private Integer quantidade;
 
 }

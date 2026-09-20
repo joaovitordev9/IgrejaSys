@@ -3,7 +3,9 @@ package br.com.igreja.Sys.service;
 
 import br.com.igreja.Sys.dto.ProdutoRequest;
 import br.com.igreja.Sys.dto.ProdutoResponse;
+import br.com.igreja.Sys.entity.Categoria;
 import br.com.igreja.Sys.entity.Produto;
+import br.com.igreja.Sys.repository.CategoriaRepository;
 import br.com.igreja.Sys.repository.ProdutoRepository;
 import org.springframework.stereotype.Service;
 
@@ -13,9 +15,11 @@ import java.util.List;
 public class ProdutoService {
 
     private final ProdutoRepository produtoRepository;
+    private final CategoriaRepository categoriaRepository;
 
-    public ProdutoService(ProdutoRepository produtoRepository) {
+    public ProdutoService(ProdutoRepository produtoRepository, CategoriaRepository categoriaRepository) {
         this.produtoRepository = produtoRepository;
+        this.categoriaRepository = categoriaRepository;
     }
 
     public List<ProdutoResponse> listar(){
@@ -33,6 +37,12 @@ public class ProdutoService {
     public ProdutoResponse cadastrar(ProdutoRequest produtoRequest){
         Produto produto = new Produto();
         produtoRequest.preencher(produto);
+
+        Categoria categoria = categoriaRepository
+                .findById(produtoRequest.getCategoriaId())
+                .orElseThrow(() -> new RuntimeException("Categoria não encontrada"));
+
+        produto.setCategoria(categoria);
         produto = produtoRepository.save(produto);
         return ProdutoResponse.fromEntity(produto);
     }
@@ -44,6 +54,11 @@ public class ProdutoService {
         produto.setDescricao(produtoRequest.getDescricao());
         produto.setPreco(produtoRequest.getPreco());
 
+        Categoria categoria = categoriaRepository
+                .findById(produtoRequest.getCategoriaId())
+                .orElseThrow(() -> new RuntimeException("Categoria não encontrada"));
+
+        produto.setCategoria(categoria);
         produto = produtoRepository.save(produto);
 
         return ProdutoResponse.fromEntity(produto);

@@ -12,6 +12,7 @@ public class ProdutoRequest {
     private String nome;
     private String descricao;
     private double preco;
+    private Long categoriaId;
 
     public void preencher(Produto produto){
         produto.setNome(nome);

@@ -13,13 +13,14 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
-public class Pedido {
+public class  Pedido {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     @OneToMany(mappedBy = "pedido")
     private List<ItemPedido> itens;
+
 
     private BigDecimal valorTotal;
 
