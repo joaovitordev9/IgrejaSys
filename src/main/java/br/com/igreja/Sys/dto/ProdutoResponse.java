@@ -4,13 +4,16 @@ import br.com.igreja.Sys.entity.Produto;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.math.BigDecimal;
+
 @Getter
 @Setter
 public class ProdutoResponse {
     private long id;
     private String nome;
     private String descricao;
-    private double preco;
+    private BigDecimal preco;
+    private Long categoriaId;
 
     public static ProdutoResponse fromEntity(Produto produto) {
 
@@ -20,6 +23,7 @@ public class ProdutoResponse {
         response.setNome(produto.getNome());
         response.setDescricao(produto.getDescricao());
         response.setPreco(produto.getPreco());
+        response.setCategoriaId( produto.getCategoria().getId());
 
         return response;
     }

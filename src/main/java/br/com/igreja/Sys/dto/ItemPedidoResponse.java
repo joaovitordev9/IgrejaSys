@@ -4,6 +4,8 @@ import br.com.igreja.Sys.entity.ItemPedido;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.math.BigDecimal;
+
 @Getter
 @Setter
 public class ItemPedidoResponse {
@@ -13,7 +15,7 @@ public class ItemPedidoResponse {
     private String nomeProduto;
     private long quantidade;
     private String descricao;
-    private double precoUnitario;
+    private BigDecimal precoUnitario;
 
     public static ItemPedidoResponse fromEntity(ItemPedido itemPedido) {
         ItemPedidoResponse response = new ItemPedidoResponse();

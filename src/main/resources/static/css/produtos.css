@@ -30,3 +30,30 @@
     text-align: left;
     align-items: center;
 }
+.modal-info-produto select {
+    width: 100%;
+
+    padding: 10px 14px;
+
+    border: 1px solid #ccc;
+    border-radius: 6px;
+
+    background: #f8f9fa;
+
+    font-size: 14px;
+    font-weight: 500;
+
+    cursor: pointer;
+}
+
+.modal-info-produto select:hover {
+    border-color: #999;
+}
+
+.modal-info-produto select:focus {
+    background: white;
+
+    border-color: #222;
+
+    outline: none;
+}
