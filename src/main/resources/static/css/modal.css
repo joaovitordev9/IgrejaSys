@@ -10,7 +10,7 @@
     align-items: center;
 }
 
-.modal-info-produto {
+.modal-info {
     width: 400px;
     padding: 30px;
 
@@ -36,20 +36,20 @@
     flex-direction: column;
 }
 
-.modal-info-produto h2,
+.modal-info h2,
 .modal-excluir h2 {
     margin-top: 0;
     margin-bottom: 20px;
 }
 
-.modal-info-produto label {
+.modal-info label {
     margin-bottom: 6px;
 
     font-size: 14px;
     color: #444;
 }
 
-.modal-info-produto input {
+.modal-info input {
     height: 40px;
     padding: 0 10px;
 
@@ -61,7 +61,7 @@
     font-size: 14px;
 }
 
-.modal-info-produto input:focus {
+.modal-info input:focus {
     outline: none;
     border-color: #555;
 }

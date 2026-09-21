@@ -29,7 +29,6 @@
         </div>
     </nav>
 
-
     <div class="corpo">
         <section class="acoes-tabela">
             <form class="filtro">
@@ -51,33 +50,33 @@
                     <th class="coluna-nome">Nome</th>
                     <th class="coluna-inicio">Início</th>
                     <th class="coluna-fim">Fim</th>
-                    <th class="coluna-status">Status</th>
                 </tr>
             </thead>
             <tbody id="tabelaFestas">
 
                 <tr>
                     <td class="coluna-acoes">
-                        <button class="btn-alterar" id="btnTabelaFestasAlterar" onclick="" data-id="01">Acessar Festa</button>
+                        <button class="btn-alterar" id="btnTabelaFestasAcessar" data-id="01">Acessar Festa</button>
                     </td>
                     <td class="coluna-codigo">01</td>
-                    <td>Festa Nossa Senhora do Rosário</td>
-                    <td>04/09/2026</td>
-                    <td>04/10/2026</td>
-                    <td>Em andamento</td>
+                    <td class="coluna-nome">Festa Nossa Senhora do Rosário</td>
+                    <td class="coluna-inicio">04/09/2026</td>
+                    <td class="coluna-fim">04/10/2026</td>
                 </tr>
             </tbody>
         </table>
         <div class="modal" id="modalPrincipalFesta">
-            <div class="modal-info-festa" id="modalInfoFesta">
+            <div class="modal-info" id="modalInfoFesta">
                 <h2 id="modalInfoFestaTitulo"></h2>
-                <label for="nome">Nome</label>
-                <input type="text" id="nomeProduto">
-                <label for="preco">Preço</label>
-                <input type="number" id="precoProduto">
+                <label for="nomeFesta">Nome</label>
+                <input type="text" id="nomeFesta">
+                <label for="inicioFesta">Data de início</label>
+                <input type="date" id="inicioFesta">
+                <label for="fimFesta">Data de término</label>
+                <input type="date" id="fimFesta">
                 <div class="modal-acoes">
-                    <button class="btn btn-cancelar" id="btnModalInfoProdutosCancelar">Cancelar</button>
-                    <button class="btn btn-criar" id="btnModalInfoProdutosSalvar" data-acao="">Salvar</button>
+                    <button class="btn btn-cancelar" id="btnModalInfoFestaCancelar">Cancelar</button>
+                    <button class="btn btn-criar" id="btnModalInfoFestaSalvar" data-acao="">Salvar</button>
                 </div>
             </div>
 
@@ -99,6 +98,7 @@
     </div>
 
     <script src="js/script.js"></script>
+    <script src="js/festas.js"></script>
 </body>
 
 </html>
