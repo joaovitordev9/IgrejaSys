@@ -66,15 +66,35 @@
         </table>
         <div class="modal" id="modalPrincipalProdutos">
             <div class="modal-info-produto" id="modalInfoProduto">
+
                 <h2 id="modalInfoProdutoTitulo"></h2>
-                <label for="nome">Nome</label>
+
+                <label for="nomeProduto">Nome</label>
                 <input type="text" id="nomeProduto">
-                <label for="preco">Preço</label>
-                <input type="number" id="precoProduto">
+
+                <label for="precoProduto">Preço</label>
+                <input type="number" id="precoProduto" step="0.01">
+
+                <label for="categoriaProduto">Categoria</label>
+                <select id="categoriaProduto">
+
+                </select>
+
                 <div class="modal-acoes">
-                    <button class="btn btn-cancelar" id="btnModalInfoProdutosCancelar">Cancelar</button>
-                    <button class="btn btn-criar" id="btnModalInfoProdutosSalvar" data-acao="">Salvar</button>
+                    <button
+                            class="btn btn-cancelar"
+                            id="btnModalInfoProdutosCancelar">
+                        Cancelar
+                    </button>
+
+                    <button
+                            class="btn btn-criar"
+                            id="btnModalInfoProdutosSalvar"
+                            data-acao="">
+                        Salvar
+                    </button>
                 </div>
+
             </div>
 
             <div class="modal-excluir" id="modalProdutosExcluir">

@@ -14,6 +14,7 @@ import br.com.igreja.Sys.repository.ProdutoRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 
@@ -43,6 +44,8 @@ public class PedidoService {
 
     public PedidoResponse cadastrar(PedidoRequest pedidoRequest){
         Pedido pedido = new Pedido();
+        BigDecimal total = BigDecimal.ZERO;
+
         for (ItemPedidoRequest itemRequest : pedidoRequest.getItens()) {
 
             Produto produto = produtoRepository
@@ -54,9 +57,17 @@ public class PedidoService {
             itemPedido.setPedido(pedido);
             itemPedido.setProduto(produto);
             itemPedido.setQuantidade(itemRequest.getQuantidade());
+            itemPedido.setPrecoUnitario(produto.getPreco());
 
             pedido.getItens().add(itemPedido);
+
+            BigDecimal subtotal = produto.getPreco()
+                    .multiply(BigDecimal.valueOf(itemRequest.getQuantidade()));
+
+            total = total.add(subtotal);
         }
+
+        pedido.setValorTotal(total);
         pedido = pedidoRepository.save(pedido);
 
         return PedidoResponse.fromEntity(pedido);

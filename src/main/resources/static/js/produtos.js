@@ -1,4 +1,5 @@
 const URL_PRODUTOS = "/produtos";
+const URL_CATEGORIAS = "/categorias";
 
 
 const modalPrincipalProdutos = document.getElementById("modalPrincipalProdutos");
@@ -10,10 +11,13 @@ const modalProdutosExcluir = document.getElementById("modalProdutosExcluir");
 const btnModalExcluirConfirmar = document.getElementById("btnModalExcluirConfirmar");
 const btnModalExcluirCancelar = document.getElementById("btnModalExcluirCancelar");
 
+
 const btnModalInfoProdutosCancelar = document.getElementById("btnModalInfoProdutosCancelar");
 const btnModalInfoProdutosSalvar = document.getElementById("btnModalInfoProdutosSalvar");
 const inputNome = document.getElementById("nomeProduto");
 const inputPreco = document.getElementById("precoProduto");
+const inputCategoria = document.getElementById("categoriaProduto");
+
 
 const btnTabelaProdutosAlterar = document.getElementById("btnTabelaProdutosAlterar")
 const btnTabelaProdutosExcluir = document.getElementById("btnTabelaProdutosExcluir")
@@ -23,7 +27,7 @@ const tabelaProdutos = document.getElementById("tabelaProdutos");
 const nomeProdutoFiltro = document.getElementById("nomeProdutoFiltro");
 
 
-
+let categorias = [];
 let produtos = [];
 
 function renderizarProdutos(listaProdutos){
@@ -91,36 +95,43 @@ function fechaModaldeleteProduto() {
 }
 
 function postProduto() {
-    const inputNome = document.getElementById("nomeProduto");
-    const inputPreco = document.getElementById("precoProduto");
-
 
     const novoProduto = {
         nome: inputNome.value,
-        preco: parseFloat(inputPreco.value)
-    }
+        preco: parseFloat(inputPreco.value),
+        categoriaId: parseInt(inputCategoria.value)
+    };
 
-    fetch(URL_PRODUTOS,{
+    fetch(URL_PRODUTOS, {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
         },
         body: JSON.stringify(novoProduto)
-    }).then(function(response){
-        return response.json();
-    }).then(function(produtoCriado){
-        produtos.push(produtoCriado);
-        renderizarProdutos(produtos);
     })
+        .then(response => response.json())
+        .then(produtoCriado => {
 
-    limparCamposModalInfoProdutos();
+            produtos.push(produtoCriado);
+
+            renderizarProdutos(produtos);
+
+            limparCamposModalInfoProdutos();
+        })
+        .catch(erro => {
+            console.log(erro);
+        });
 }
 
 function limparCamposModalInfoProdutos() {
+
     inputNome.value = "";
     inputPreco.value = "";
-}
 
+    if (categorias.length > 0) {
+        inputCategoria.value = categorias[0].id;
+    }
+}
 function carregarProdutoModal(produto) {
     inputNome.value = produto.nome;
     inputPreco.value = produto.preco;
@@ -169,10 +180,42 @@ function filtrarProdutos() {
     renderizarProdutos(produtosFiltrados);
 }
 
+function renderizarCategorias() {
+
+    inputCategoria.innerHTML = "";
+
+    categorias.forEach(categoria => {
+
+        inputCategoria.innerHTML += `
+            <option value="${categoria.id}">
+                ${categoria.nome}
+            </option>
+        `;
+    });
+}
+
+function getCategorias() {
+
+    fetch(URL_CATEGORIAS)
+        .then(response => response.json())
+        .then(dados => {
+
+            categorias = dados;
+
+            renderizarCategorias();
+        })
+        .catch(erro => {
+            console.log(erro);
+        });
+}
 /* EVENTOS */
 
 btnNovoProduto.addEventListener("click", function() {
+
+    getCategorias();
+
     btnModalInfoProdutosSalvar.dataset.acao = "criar";
+
     abreModalInfoProduto("Novo Produto");
 });
 
