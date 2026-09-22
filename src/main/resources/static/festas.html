@@ -35,10 +35,10 @@
                 <h2 class="titulo-acoes-tabela">
                     Buscar por festa
                 </h2>
-                <label for="nomeFesta-filtro">
+                <label for="nomeFestaFiltro">
                     Nome da festa:
                 </label>
-                <input type="text" id="nomeFesta-filtro" name="nomeFesta-filtro">
+                <input type="text" id="nomeFestaFiltro" name="nomeFesta-filtro">
             </form>
         
         </section>
@@ -54,7 +54,7 @@
             </thead>
             <tbody id="tabelaFestas">
 
-                <tr>
+                <!-- <tr>
                     <td class="coluna-acoes">
                         <button class="btn-alterar" id="btnTabelaFestasAcessar" data-id="01">Acessar Festa</button>
                     </td>
@@ -62,7 +62,7 @@
                     <td class="coluna-nome">Festa Nossa Senhora do Rosário</td>
                     <td class="coluna-inicio">04/09/2026</td>
                     <td class="coluna-fim">04/10/2026</td>
-                </tr>
+                </tr> -->
             </tbody>
         </table>
         <div class="modal" id="modalPrincipalFesta">
@@ -90,6 +90,37 @@
                         Cancelar
                     </button>
                     <button class="btn btn-excluir" id="btnModalExcluirConfirmar">
+                        Excluir
+                    </button>
+                </div>
+            </div>
+
+            <div id="modalAcessarFesta" class="modal-acessar-festa">
+
+                 <div class="modal-cabecalho">
+                    <h2 id="tituloFesta">Menu da festa</h2>
+                    <button id="btnFecharModal">×</button>
+                </div>
+
+                <div class="opcoes-festa">
+
+                    <button id="btnProdutos" class="btn-opcao-festa">
+                        Produtos
+                    </button>
+
+                    <button id="btnCaixa" class="btn-opcao-festa">
+                        Caixa
+                    </button>
+
+                    <button id="btnRelatorios" class="btn-opcao-festa">
+                        Relatórios
+                    </button>
+
+                    <button id="btnAlterarFesta" class="btn-alterar">
+                        Alterar
+                    </button>
+
+                    <button id="btnExcluir" class="btn-opcao-festa btn-excluir">
                         Excluir
                     </button>
                 </div>

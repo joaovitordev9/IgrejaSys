@@ -3,6 +3,7 @@ package br.com.igreja.Sys.controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.igreja.Sys.dto.FestaDetalhesResponse;
 import br.com.igreja.Sys.dto.FestaRequest;
 import br.com.igreja.Sys.dto.FestaResponse;
 import br.com.igreja.Sys.service.FestaService;
@@ -33,7 +34,7 @@ public class FestaController {
     }
 
     @GetMapping("/{Id}")
-    public FestaResponse listarId(@PathVariable Long id) {
+    public FestaDetalhesResponse listarId(@PathVariable Long id) {
         return festaService.buscarPorId(id);
     }
     

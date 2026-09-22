@@ -54,6 +54,21 @@
     background-color: #e5b52f;
 }
 
+.btn-acessar {
+    background-color: #f5c542;
+    color: #3d3200;
+    border: none;
+    border-radius: 3px;
+    padding: 7px 12px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.btn-acessar:hover {
+    background-color: #e5b52f;
+}
+
 .btn-excluir {
     background-color: #e74c3c;
     color: white;

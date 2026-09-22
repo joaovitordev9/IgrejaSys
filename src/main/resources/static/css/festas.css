@@ -12,3 +12,118 @@
     text-align: center;
     align-items: center;
 }
+
+.opcoes-festa {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.btn-opcao-festa {
+    width: 80%;
+    padding: 14px;
+    border: none;
+    border-radius: 3px;
+    background-color: #eeeeee;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.btn-opcao-festa:hover {
+    background-color: #dddddd;
+}
+
+/* Modal de acesso à festa */
+#modalAcessarFesta {
+    width: 400px;
+    padding-bottom: 30px;
+    background-color: white;
+    border-radius: 3px;
+    box-sizing: border-box;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Título */
+#modalAcessarFesta #tituloFesta {
+    text-align: center;
+}
+
+/* Container dos botões */
+#modalAcessarFesta .opcoes-festa {
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.modal-cabecalho {
+    width: 100%;
+    padding-bottom: 20px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-cabecalho h2 {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.modal-cabecalho button {
+    position: absolute;
+    right: 5px;
+    top: 30%;
+    transform: translateY(-50%);
+    border: none;
+    background: none;
+    font-size: 28px;
+    cursor: pointer;
+}
+
+/* Botões */
+#btnAlterarFesta {
+    width: 100%;
+    padding: 12px;
+    
+    border: none;
+    border-radius: 3px;
+    
+    cursor: pointer;
+    
+    font-size: 16px;
+    font-weight: 500;
+
+}
+
+#modalAcessarFesta .btn-opcao-festa {
+    width: 100%;
+    padding: 12px;
+    
+    border: none;
+    border-radius: 3px;
+    
+    background-color: #f2f2f2;
+    cursor: pointer;
+    
+    font-size: 16px;
+    font-weight: 500;
+}
+
+/* Efeito ao passar o mouse */
+#modalAcessarFesta .btn-opcao-festa:hover {
+    background-color: #e5e5e5;
+}
+
+/* Botão excluir */
+#modalAcessarFesta .btn-opcao-festa.btn-excluir {
+    background-color: #dc3545;
+    color: white;
+}
+
+#modalAcessarFesta .btn-opcao-festa.btn-excluir:hover {
+    background-color: #c82333;
+}

@@ -1,22 +1,38 @@
-const URL_PRODUTOS = "/festas";
-let proximoId = 2;
+// CONFIGURAÇÕES
+const URL_FESTAS = "/festas";
 
+// ESTADO
+let festas = [];
+
+// MODAIS
 const modalPrincipalFesta = document.getElementById("modalPrincipalFesta");
-
-const btnNovaFesta = document.getElementById("btnNovaFesta");
 const modalInfoFesta = document.getElementById("modalInfoFesta");
+const modalAcessarFesta = document.getElementById("modalAcessarFesta");
+
+// TÍTULOS
 const modalInfoFestaTitulo = document.getElementById("modalInfoFestaTitulo");
+
+// BOTÕES
+const btnNovaFesta = document.getElementById("btnNovaFesta");
 const btnModalInfoFestaSalvar = document.getElementById("btnModalInfoFestaSalvar");
 const btnModalInfoFestaCancelar = document.getElementById("btnModalInfoFestaCancelar");
+const btnFecharModal = document.getElementById("btnFecharModal");
+
+// CAMPOS DO FORMULÁRIO
 const inputNomeFesta = document.getElementById("nomeFesta");
 const inputInicioFesta = document.getElementById("inicioFesta");
 const inputFimFesta = document.getElementById("fimFesta");
 
+// FILTROS E TABELA
+const nomeFestaFiltro = document.getElementById("nomeFestaFiltro");
 const tabelaFestas = document.getElementById("tabelaFestas");
 
-let festas = [];
 
 function renderizarFestas(listaFestas){
+
+    festas.sort(function(a, b) {
+        return new Date(b.dataInicio) - new Date(a.dataInicio);
+    });
 
     tabelaFestas.innerHTML = "";
 
@@ -24,21 +40,23 @@ function renderizarFestas(listaFestas){
         let festa = listaFestas[i];
 
         let idFormatado = festa.id.toString().padStart(2, "0");
+        let dataInicioFormatada = new Date(festa.dataInicio).toLocaleDateString("pt-BR");
+        let dataFimFormatada = new Date(festa.dataFim).toLocaleDateString("pt-BR");
+
 
         tabelaFestas.innerHTML += `
-            <tr>
+            <tr data-id=${festa.id}>
                 <td class="coluna-acoes">
-                    <button class="btn-alterar" id="btnTabelaFestasAcessar" data-id=${idFormatado}>Acessar Festa</button>
+                    <button class="btn-acessar" id="btnTabelaFestasAcessar" data-id=${festa.id}>Acessar Festa</button>
                 </td>
                 <td class="coluna-codigo">${idFormatado}</td>
                 <td class="coluna-nome">${festa.nome}</td>
-                <td class="coluna-inicio">${festa.dataInicio}</td>
-                <td class="coluna-fim">${festa.dataFim}</td>
+                <td class="coluna-inicio">${dataInicioFormatada}</td>
+                <td class="coluna-fim">${dataFimFormatada}</td>
             </tr>
         `;
     }
 }
-
 function abreModalInfoFesta(titulo) {
 
     modalInfoFestaTitulo.textContent = titulo;
@@ -46,47 +64,81 @@ function abreModalInfoFesta(titulo) {
     modalInfoFesta.style.display = "flex";
     inputNomeFesta.focus();
 }
-
 function fechaModalInfoFesta() {
     modalPrincipalFesta.style.display = "none";
     modalInfoFesta.style.display = "none";
 }
-
-function postFesta() {
-
-    const novaFesta = {
-        id: proximoId,
-        nome: inputNomeFesta.value,
-        dataInicio: inputInicioFesta.value,
-        dataFim: inputFimFesta.value
-    }
-
-    festas.push(novaFesta);
-    proximoId++;
-    renderizarFestas(festas);
-
-
-    // fetch(URL_PRODUTOS,{
-    //     method: "POST",
-    //     headers: {
-    //         "Content-Type": "application/json"
-    //     },
-    //     body: JSON.stringify(novoProduto)
-    // }).then(function(response){
-    //     return response.json();
-    // }).then(function(produtoCriado){
-    //     produtos.push(produtoCriado);
-    //     renderizarProdutos(produtos);
-    // })
-
-    limparCamposModalInfoFesta();
-}
-
 function limparCamposModalInfoFesta() {
     inputNomeFesta.value = "";
     inputInicioFesta.value = "";
     inputFimFesta.value = "";
 }
+function abreModalAcessarFesta() {
+
+    modalPrincipalFesta.style.display = "flex";
+    modalAcessarFesta.style.display = "flex";
+}
+function fechaModalAcessarFesta() {
+
+    modalPrincipalFesta.style.display = "none";
+    modalAcessarFesta.style.display = "none";
+}
+function filtrarFestas() {
+    const textoBusca = nomeFestaFiltro.value.toLowerCase();
+
+    const festasFiltradas = festas.filter(function (festa) {
+        return festa.nome.toLowerCase().includes(textoBusca) || String(festa.id).includes(textoBusca);
+    });
+
+    renderizarFestas(festasFiltradas);
+}
+function getFestas() {
+    fetch(URL_FESTAS)
+        .then(response => response.json())
+        .then(dados => {
+
+            festas = dados;
+
+            renderizarFestas(festas);
+        })
+        .catch(erro => {
+            console.log(erro);
+        });
+}
+function postFesta() {
+
+    const novaFesta = {
+        nome: inputNomeFesta.value,
+        dataInicio: inputInicioFesta.value,
+        dataFim: inputFimFesta.value
+    }
+
+
+    fetch(URL_FESTAS, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(novaFesta)
+    })
+        .then(response => response.json())
+        .then(festaCriada => {
+            console.log(festaCriada);
+            festas.push(festaCriada);
+
+            renderizarFestas(festas);
+
+            limparCamposModalInfoFesta();
+        })
+        .catch(erro => {
+            console.log(erro);
+        });
+}
+
+
+nomeFestaFiltro.addEventListener("input", function() {
+    filtrarFestas();
+})
 
 btnNovaFesta.addEventListener("click", function() {
     btnModalInfoFestaSalvar.dataset.acao = "criar";
@@ -112,3 +164,21 @@ btnModalInfoFestaSalvar.addEventListener("click", function() {
     fechaModalInfoFesta();
 })
 
+tabelaFestas.addEventListener("click", function (evento) {
+
+    const linha = evento.target.closest("tr");
+
+    if (!linha) {
+        return;
+    }
+
+    const id = linha.dataset.id;
+
+    abreModalAcessarFesta();
+});
+
+btnFecharModal.addEventListener("click", function() {
+    fechaModalAcessarFesta();
+})
+
+getFestas();

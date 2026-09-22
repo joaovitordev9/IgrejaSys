@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import br.com.igreja.Sys.dto.FestaDetalhesResponse;
 import br.com.igreja.Sys.dto.FestaRequest;
 import br.com.igreja.Sys.dto.FestaResponse;
 import br.com.igreja.Sys.entity.Festa;
@@ -24,10 +25,10 @@ public class FestaService {
         return festas.stream().map(FestaResponse::fromEntity).toList();
     }
 
-    public FestaResponse buscarPorId(long id) {
+    public FestaDetalhesResponse buscarPorId(long id) {
         Festa festa = festaRepository.findById(id).get();
 
-        return FestaResponse.fromEntity(festa);
+        return FestaDetalhesResponse.fromEntity(festa);
     }
 
     public FestaResponse cadastrar(FestaRequest request) {
