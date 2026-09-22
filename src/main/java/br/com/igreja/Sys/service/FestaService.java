@@ -1,0 +1,55 @@
+package br.com.igreja.Sys.service;
+
+import java.util.List;
+
+import org.springframework.stereotype.Service;
+
+import br.com.igreja.Sys.dto.FestaRequest;
+import br.com.igreja.Sys.dto.FestaResponse;
+import br.com.igreja.Sys.entity.Festa;
+import br.com.igreja.Sys.repository.FestaRepository;
+
+@Service 
+public class FestaService {
+    
+    private final FestaRepository festaRepository;
+
+    public FestaService(FestaRepository festaRepository){
+        this.festaRepository = festaRepository;
+    }
+
+    public List<FestaResponse> listar(){
+        List<Festa> festas = festaRepository.findAll();
+
+        return festas.stream().map(FestaResponse::fromEntity).toList();
+    }
+
+    public FestaResponse buscarPorId(long id) {
+        Festa festa = festaRepository.findById(id).get();
+
+        return FestaResponse.fromEntity(festa);
+    }
+
+    public FestaResponse cadastrar(FestaRequest request) {
+        Festa festa = new Festa();
+        request.preencher(festa);
+
+        festa = festaRepository.save(festa);
+        return FestaResponse.fromEntity(festa);
+    }
+
+    public FestaResponse alterar(long id, FestaRequest request) {
+        Festa festa = festaRepository.findById(id).orElseThrow(() -> new RuntimeException("Festa não encontrada"));
+
+        festa.setNome(request.getNome());
+        festa.setDataInicio(request.getDataInicio());
+        festa.setDataFim(request.getDataFim());
+
+        return FestaResponse.fromEntity(festa);
+    }
+
+    public void deletar(long id) {
+        festaRepository.deleteById(id);
+    }
+
+}

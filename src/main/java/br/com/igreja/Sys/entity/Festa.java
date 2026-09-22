@@ -5,7 +5,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 @Entity
@@ -16,8 +16,8 @@ public class Festa {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String nome;
-    private Date dataInicio;
-    private Date dataFim;
+    private LocalDate dataInicio;
+    private LocalDate dataFim;
 
     @OneToMany
     @JoinColumn(name="id_festa")
@@ -26,5 +26,4 @@ public class Festa {
     @OneToMany
     @JoinColumn(name="id_festa")
     private List<Pedido> pedidos;
-
 }
