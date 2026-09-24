@@ -1,5 +1,6 @@
 package br.com.igreja.Sys.dto;
 
+import br.com.igreja.Sys.entity.Festa;
 import br.com.igreja.Sys.entity.Produto;
 import lombok.Getter;
 import lombok.Setter;

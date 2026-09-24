@@ -1,5 +1,7 @@
-const URL_PRODUTOS = "/produtos";
+const URL_PRODUTOS = "/festas";
 const URL_CATEGORIAS = "/categorias";
+
+
 
 
 const modalPrincipalProdutos = document.getElementById("modalPrincipalProdutos");
@@ -55,7 +57,11 @@ function renderizarProdutos(listaProdutos){
 }
 
 function getProdutos() {
-    fetch(URL_PRODUTOS)
+
+    const params = new URLSearchParams(window.location.search);
+    const festaId = params.get("idFesta");
+    console.log("deu red", festaId);
+    fetch(`/festas/${festaId}/produtos`)
         .then(response => response.json())
         .then(dados => {
 

@@ -4,8 +4,10 @@ package br.com.igreja.Sys.service;
 import br.com.igreja.Sys.dto.ProdutoRequest;
 import br.com.igreja.Sys.dto.ProdutoResponse;
 import br.com.igreja.Sys.entity.Categoria;
+import br.com.igreja.Sys.entity.Festa;
 import br.com.igreja.Sys.entity.Produto;
 import br.com.igreja.Sys.repository.CategoriaRepository;
+import br.com.igreja.Sys.repository.FestaRepository;
 import br.com.igreja.Sys.repository.ProdutoRepository;
 import org.springframework.stereotype.Service;
 
@@ -15,16 +17,19 @@ import java.util.List;
 public class ProdutoService {
 
     private final ProdutoRepository produtoRepository;
-    private final CategoriaRepository categoriaRepository;
+    private final CategoriaRepository categoriaRepository;    
+    private final FestaRepository festaRepository;
 
-    public ProdutoService(ProdutoRepository produtoRepository, CategoriaRepository categoriaRepository) {
+
+    public ProdutoService(ProdutoRepository produtoRepository, CategoriaRepository categoriaRepository, FestaRepository festaRepository) {
         this.produtoRepository = produtoRepository;
         this.categoriaRepository = categoriaRepository;
+        this.festaRepository = festaRepository;
     }
 
-    public List<ProdutoResponse> listar(){
-        List<Produto> produtos = produtoRepository.findAll();
-
+    public List<ProdutoResponse> listar(long festaId){
+        List<Produto> produtos = produtoRepository.findByFestaId(festaId);
+        System.out.println("Produtos encontrados: " + produtos.size() + festaId);
         return produtos.stream().map(ProdutoResponse::fromEntity).toList();
     }
 
@@ -34,7 +39,7 @@ public class ProdutoService {
         return ProdutoResponse.fromEntity(produto);
     }
 
-    public ProdutoResponse cadastrar(ProdutoRequest produtoRequest){
+    public ProdutoResponse cadastrar(long festaId, ProdutoRequest produtoRequest){
         Produto produto = new Produto();
         produtoRequest.preencher(produto);
 
@@ -42,7 +47,10 @@ public class ProdutoService {
                 .findById(produtoRequest.getCategoriaId())
                 .orElseThrow(() -> new RuntimeException("Categoria não encontrada"));
 
+        Festa festa =  festaRepository.findById(festaId).orElseThrow(() -> new RuntimeException("Festa não encontrada"));
+
         produto.setCategoria(categoria);
+        produto.setFesta(festa);
         produto = produtoRepository.save(produto);
         return ProdutoResponse.fromEntity(produto);
     }

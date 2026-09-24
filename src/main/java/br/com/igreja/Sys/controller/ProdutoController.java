@@ -1,17 +1,15 @@
 package br.com.igreja.Sys.controller;
 
-import br.com.igreja.Sys.dto.PedidoResponse;
 import br.com.igreja.Sys.dto.ProdutoRequest;
 import br.com.igreja.Sys.dto.ProdutoResponse;
 import br.com.igreja.Sys.service.ProdutoService;
-import jakarta.persistence.Id;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @CrossOrigin(origins = "http://localhost:63342")
 @RestController
-@RequestMapping("/produtos")
+@RequestMapping("/festas/{idFesta}/produtos")
 public class ProdutoController {
 
     private final ProdutoService produtoService;
@@ -21,29 +19,28 @@ public class ProdutoController {
     }
 
     @GetMapping
-    public List<ProdutoResponse> listar(){
-        return produtoService.listar();
+    public List<ProdutoResponse> listar(@PathVariable long idFesta){
+        return produtoService.listar(idFesta);
     }
 
-    @GetMapping("/{Id}")
-    public ProdutoResponse listarId(@PathVariable long Id){
+    @GetMapping("{Id}")
+    public ProdutoResponse listarId(@PathVariable long idFesta, @PathVariable long Id){
         return produtoService.buscarPorId(Id);
     }
 
     @PostMapping
-    public ProdutoResponse cadastrar(@RequestBody ProdutoRequest produtoRequest){
-        return produtoService.cadastrar(produtoRequest);
+    public ProdutoResponse cadastrar(@PathVariable long idFesta, @RequestBody ProdutoRequest produtoRequest){
+        return produtoService.cadastrar(idFesta, produtoRequest);
     }
 
-    @PutMapping("/{Id}")
-    public ProdutoResponse alterar(@PathVariable long Id, @RequestBody ProdutoRequest produtoRequest){
+    @PutMapping("{Id}")
+    public ProdutoResponse alterar(@PathVariable long idFesta, @PathVariable long Id, @RequestBody ProdutoRequest produtoRequest){
         return produtoService.alterar(Id,produtoRequest);
     }
 
-    @DeleteMapping("/{Id}")
-    public void deletar(@PathVariable long Id){
+    @DeleteMapping("{Id}")
+    public void deletar(@PathVariable long idFesta, @PathVariable long Id){
         produtoService.deletar(Id);
     }
-
 
 }
