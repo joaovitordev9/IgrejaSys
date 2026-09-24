@@ -22,10 +22,14 @@ public class  Pedido {
     @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL)
     private List<ItemPedido> itens = new ArrayList<>();
 
-
     private BigDecimal valorTotal;
+
+    @ManyToOne
+    @JoinColumn(name = "id_festa")
+    private Festa festa;
 
     @CreationTimestamp
     private LocalDateTime dataCriacao;
+
 
 }

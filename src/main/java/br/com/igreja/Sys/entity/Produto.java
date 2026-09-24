@@ -5,6 +5,9 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
+
+import org.hibernate.annotations.CreationTimestamp;
 
 @Entity
 @Getter
@@ -19,11 +22,14 @@ public class Produto {
     private BigDecimal preco;
 
     @ManyToOne
-    @JoinColumn(name = "categoria_id")
+    @JoinColumn(name = "id_categoria")
     private Categoria categoria;
 
     @ManyToOne 
-    @JoinColumn(name = "festa_id")
+    @JoinColumn(name = "id_festa")
     private Festa festa;
+
+    @CreationTimestamp
+    private LocalDateTime dataCriacao;
 
 }

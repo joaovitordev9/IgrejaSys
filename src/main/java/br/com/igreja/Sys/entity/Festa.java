@@ -19,11 +19,9 @@ public class Festa {
     private LocalDate dataInicio;
     private LocalDate dataFim;
 
-    @OneToMany
-    @JoinColumn(name="id_festa")
+    @OneToMany(mappedBy = "festa")
     private List<Produto> produtos;
 
-    @OneToMany
-    @JoinColumn(name="id_festa")
+    @OneToMany(mappedBy = "festa")
     private List<Pedido> pedidos;
 }
