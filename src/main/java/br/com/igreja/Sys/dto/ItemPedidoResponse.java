@@ -1,9 +1,7 @@
 package br.com.igreja.Sys.dto;
-
 import br.com.igreja.Sys.entity.ItemPedido;
 import lombok.Getter;
 import lombok.Setter;
-
 import java.math.BigDecimal;
 
 @Getter
@@ -14,7 +12,6 @@ public class ItemPedidoResponse {
     private Long produtoId;
     private String nomeProduto;
     private long quantidade;
-    private String descricao;
     private BigDecimal precoUnitario;
 
     public static ItemPedidoResponse fromEntity(ItemPedido itemPedido) {
@@ -24,9 +21,7 @@ public class ItemPedidoResponse {
         response.setProdutoId(itemPedido.getProduto().getId());
         response.setQuantidade(itemPedido.getQuantidade());
         response.setNomeProduto(itemPedido.getProduto().getNome());
-        response.setDescricao(itemPedido.getProduto().getDescricao());
         response.setPrecoUnitario(itemPedido.getPrecoUnitario());
         return response;
     }
-
 }

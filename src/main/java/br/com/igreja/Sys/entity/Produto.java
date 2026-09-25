@@ -18,7 +18,6 @@ public class Produto {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String nome;
-    private String descricao;
     private BigDecimal preco;
 
     @ManyToOne

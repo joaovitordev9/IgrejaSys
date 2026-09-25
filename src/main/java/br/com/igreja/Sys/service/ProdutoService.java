@@ -60,7 +60,6 @@ public class ProdutoService {
         Produto produto = produtoRepository.findById(id).orElseThrow(() -> new RuntimeException("Produto não encontrado"));
 
         produto.setNome(produtoRequest.getNome());
-        produto.setDescricao(produtoRequest.getDescricao());
         produto.setPreco(produtoRequest.getPreco());
 
         Categoria categoria = categoriaRepository

@@ -14,13 +14,11 @@ import java.math.BigDecimal;
 public class ProdutoRequest {
 
     private String nome;
-    private String descricao;
     private BigDecimal preco;
     private Long categoriaId;
 
     public void preencher(Produto produto, Categoria categoria, Festa festa){
         produto.setNome(nome);
-        produto.setDescricao(descricao);
         produto.setPreco(preco);
         produto.setCategoria(categoria);
         produto.setFesta(festa);

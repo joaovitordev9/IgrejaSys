@@ -20,7 +20,6 @@ public class ProdutoResponse {
 
         response.setId(produto.getId());
         response.setNome(produto.getNome());
-        response.setDescricao(produto.getDescricao());
         response.setPreco(produto.getPreco());
         response.setCategoria( CategoriaResumo.fromEntity(produto.getCategoria()));
 
