@@ -8,6 +8,8 @@ import lombok.Setter;
 import java.time.LocalDate;
 import java.util.List;
 
+import org.hibernate.annotations.CreationTimestamp;
+
 @Entity
 @Getter
 @Setter
@@ -24,4 +26,7 @@ public class Festa {
 
     @OneToMany(mappedBy = "festa")
     private List<Pedido> pedidos;
+
+    @CreationTimestamp 
+    private LocalDate dataCriacao;
 }

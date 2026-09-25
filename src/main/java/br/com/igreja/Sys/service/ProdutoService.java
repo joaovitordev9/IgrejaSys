@@ -40,17 +40,18 @@ public class ProdutoService {
     }
 
     public ProdutoResponse cadastrar(long festaId, ProdutoRequest produtoRequest){
-        Produto produto = new Produto();
-        produtoRequest.preencher(produto);
-
+        
         Categoria categoria = categoriaRepository
                 .findById(produtoRequest.getCategoriaId())
                 .orElseThrow(() -> new RuntimeException("Categoria não encontrada"));
 
-        Festa festa =  festaRepository.findById(festaId).orElseThrow(() -> new RuntimeException("Festa não encontrada"));
+        Festa festa =  festaRepository
+                .findById(festaId)
+                .orElseThrow(() -> new RuntimeException("Festa não encontrada"));
 
-        produto.setCategoria(categoria);
-        produto.setFesta(festa);
+        Produto produto = new Produto();
+        produtoRequest.preencher(produto, categoria, festa);
+
         produto = produtoRepository.save(produto);
         return ProdutoResponse.fromEntity(produto);
     }

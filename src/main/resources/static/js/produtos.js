@@ -1,6 +1,9 @@
 const URL_PRODUTOS = "/festas";
 const URL_CATEGORIAS = "/categorias";
 
+const params = new URLSearchParams(window.location.search);
+const festaId = params.get("idFesta");
+
 
 
 
@@ -57,136 +60,6 @@ function renderizarProdutos(listaProdutos){
                 `;
     }
 }
-
-function getProdutos() {
-
-    const params = new URLSearchParams(window.location.search);
-    const festaId = params.get("idFesta");
-    fetch(`/festas/${festaId}/produtos`)
-        .then(response => response.json())
-        .then(dados => {
-
-            produtos = dados;
-
-            renderizarProdutos(produtos);
-        })
-        .catch(erro => {
-            console.log(erro);
-        });
-}
-
-function abreModalInfoProduto(titulo) {
-
-    modalInfoProdutoTitulo.textContent = titulo;
-    modalPrincipalProdutos.style.display = "flex";
-    modalInfoProduto.style.display = "flex";
-
-    inputNome.focus();
-}
-
-function fechaModalInfoProduto() {
-    modalPrincipalProdutos.style.display = "none";
-    modalInfoProduto.style.display = "none";
-}
-
-function abreModaldeleteProduto(titulo) {
-    modalPrincipalProdutos.style.display = "flex";
-    modalProdutosExcluir.style.display = "flex";
-
-    btnModalExcluirCancelar.focus();
-}
-
-function fechaModaldeleteProduto() {
-    modalPrincipalProdutos.style.display = "none";
-    modalProdutosExcluir.style.display = "none";
-}
-
-function postProduto() {
-
-    const novoProduto = {
-        nome: inputNome.value,
-        preco: parseFloat(inputPreco.value),
-        categoriaId: parseInt(inputCategoria.value)
-    };
-
-    fetch(URL_PRODUTOS, {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify(novoProduto)
-    })
-        .then(response => response.json())
-        .then(produtoCriado => {
-
-            produtos.push(produtoCriado);
-
-            renderizarProdutos(produtos);
-
-            limparCamposModalInfoProdutos();
-        })
-        .catch(erro => {
-            console.log(erro);
-        });
-}
-
-function limparCamposModalInfoProdutos() {
-
-    inputNome.value = "";
-    inputPreco.value = "";
-
-    if (categorias.length > 0) {
-        inputCategoria.value = categorias[0].id;
-    }
-}
-function carregarProdutoModal(produto) {
-    inputNome.value = produto.nome;
-    inputPreco.value = produto.preco;
-}
-
-function putProduto() {
-    const id = btnModalInfoProdutosSalvar.dataset.id;
-    const produto = produtos.find(function (produto) {
-            return produto.id == id;
-        });
-
-    console.log(id);
-
-    produto.nome = inputNome.value;
-    produto.preco = parseFloat(inputPreco.value);
-    limparCamposModalInfoProdutos();
-    getProdutos();
-}
-
-function deleteProduto(){
-    const id = btnModalExcluirConfirmar.dataset.idProdutoExcluido;
-    console.log(id);
-    fetch(URL_PRODUTOS + "/" + id,{
-        method: "DELETE"
-    }).then(function (response){
-        if (!response.ok){
-            throw new Error("Erro ao excluir produto");
-        }
-
-        const indice = produtos.findIndex(function (produto) {
-            return produto.id == id;
-        });
-
-        produtos.splice(indice, 1);
-        renderizarProdutos(produtos);
-    })
-};
-
-function filtrarProdutos() {
-    const textoBusca = nomeProdutoFiltro.value.toLowerCase();
-
-    const produtosFiltrados = produtos.filter(function (produto) {
-        return produto.nome.toLowerCase().includes(textoBusca) || String(produto.id).includes(textoBusca);
-    });
-
-    renderizarProdutos(produtosFiltrados);
-}
-
 function renderizarCategorias() {
 
     inputCategoria.innerHTML = "";
@@ -215,6 +88,153 @@ function getCategorias() {
             console.log(erro);
         });
 }
+function getProdutos() {
+
+    fetch(`/festas/${festaId}/produtos`)
+        .then(response => response.json())
+        .then(dados => {
+
+            produtos = dados;
+
+            renderizarProdutos(produtos);
+        })
+        .catch(erro => {
+            console.log(erro);
+        });
+}
+
+function postProduto() {
+
+    const novoProduto = {
+        nome: inputNome.value,
+        preco: parseFloat(inputPreco.value),
+        categoriaId: inputCategoria.value
+    };
+
+    fetch(`/festas/${festaId}/produtos`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(novoProduto)
+    })
+        .then(response => response.json())
+        .then(produtoCriado => {
+
+            produtos.push(produtoCriado);
+
+            renderizarProdutos(produtos);
+
+            limparCamposModalInfoProdutos();
+        })
+        .catch(erro => {
+            console.log(erro);
+        });
+}
+
+function putProduto() {
+
+    const produtoId = btnModalInfoProdutosSalvar.dataset.id;
+    const produtoAlterado = {
+        nome: inputNome.value,
+        preco: parseFloat(inputPreco.value),
+        categoriaId: inputCategoria.value
+    };
+
+    fetch(`/festas/${festaId}/produtos/${produtoId}`, {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(produtoAlterado)
+    })
+        .then(response => response.json())
+        .catch(erro => {
+            console.log(erro);
+        });
+
+    const produto = produtos.find(function (produto) {
+        return produto.id == id;
+    });
+    
+    produto.nome = produtoAlterado.nome;
+    produto.preco = produtoAlterado.preco;
+    produto.categoriaId = produtoAlterado.categoriaId;
+        
+}
+
+function deleteProduto(){
+    const produtoId = btnModalExcluirConfirmar.dataset.idProdutoExcluido;
+
+    fetch( `/festas/${festaId}/produtos/${produtoId}`,{
+        method: "DELETE"
+    }).then(function (response){
+        if (!response.ok){
+            throw new Error("Erro ao excluir produto");
+        }
+    })
+
+    const indice = produtos.findIndex(function (produto) {
+        return produto.id == produtoId;
+    });
+
+    produtos.splice(indice, 1);
+};
+
+
+function abreModalInfoProduto(titulo) {
+
+    modalInfoProdutoTitulo.textContent = titulo;
+    modalPrincipalProdutos.style.display = "flex";
+    modalInfoProduto.style.display = "flex";
+
+    inputNome.focus();
+}
+
+function fechaModalInfoProduto() {
+    modalPrincipalProdutos.style.display = "none";
+    modalInfoProduto.style.display = "none";
+}
+
+function abreModaldeleteProduto(titulo) {
+    modalPrincipalProdutos.style.display = "flex";
+    modalProdutosExcluir.style.display = "flex";
+
+    btnModalExcluirCancelar.focus();
+}
+
+function fechaModaldeleteProduto() {
+    modalPrincipalProdutos.style.display = "none";
+    modalProdutosExcluir.style.display = "none";
+}
+
+function limparCamposModalInfoProdutos() {
+
+    inputNome.value = "";
+    inputPreco.value = "";
+
+    if (categorias.length > 0) {
+        inputCategoria.value = categorias[0].id;
+    }
+}
+function carregarDadosProdutoNoModal(produto) {
+    inputNome.value = produto.nome;
+    inputPreco.value = produto.preco;
+}
+
+function filtrarProdutos() {
+    const textoBusca = nomeProdutoFiltro.value.toLowerCase();
+
+    const produtosFiltrados = produtos.filter(function (produto) {
+        return produto.nome.toLowerCase().includes(textoBusca) || String(produto.id).includes(textoBusca);
+    });
+
+    renderizarProdutos(produtosFiltrados);
+}
+
+
+
+
 /* EVENTOS */
 
 btnNovoProduto.addEventListener("click", function() {
@@ -242,7 +262,10 @@ btnModalInfoProdutosSalvar.addEventListener("click", function() {
     if (acao === "alterar") {
         putProduto();
     }
+
+    limparCamposModalInfoProdutos();
     fechaModalInfoProduto();
+    renderizarProdutos(produtos);
 })
 
 btnModalExcluirCancelar.addEventListener("click", function() {
@@ -251,6 +274,7 @@ btnModalExcluirCancelar.addEventListener("click", function() {
 
 btnModalExcluirConfirmar.addEventListener("click", function() {
     deleteProduto();
+    renderizarProdutos(produtos);
     fechaModaldeleteProduto();
 })
 
@@ -274,7 +298,7 @@ tabelaProdutos.addEventListener("click", function (evento) {
         btnModalInfoProdutosSalvar.dataset.id = id;
 
         abreModalInfoProduto("Alterar Produto");
-        carregarProdutoModal(produto);
+        carregarDadosProdutoNoModal(produto);
     }
 });
 

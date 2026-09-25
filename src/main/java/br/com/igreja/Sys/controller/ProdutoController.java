@@ -34,12 +34,12 @@ public class ProdutoController {
     }
 
     @PutMapping("{Id}")
-    public ProdutoResponse alterar(@PathVariable long idFesta, @PathVariable long Id, @RequestBody ProdutoRequest produtoRequest){
+    public ProdutoResponse alterar(@PathVariable long Id, @RequestBody ProdutoRequest produtoRequest){
         return produtoService.alterar(Id,produtoRequest);
     }
 
     @DeleteMapping("{Id}")
-    public void deletar(@PathVariable long idFesta, @PathVariable long Id){
+    public void deletar(@PathVariable long Id){
         produtoService.deletar(Id);
     }
 
