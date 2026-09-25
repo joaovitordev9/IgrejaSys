@@ -5,13 +5,11 @@ import br.com.igreja.Sys.dto.ItemPedidoRequest;
 import br.com.igreja.Sys.dto.PedidoRequest;
 import br.com.igreja.Sys.dto.PedidoResponse;
 
-import br.com.igreja.Sys.dto.ProdutoRequest;
 import br.com.igreja.Sys.entity.ItemPedido;
 import br.com.igreja.Sys.entity.Pedido;
 import br.com.igreja.Sys.entity.Produto;
 import br.com.igreja.Sys.repository.PedidoRepository;
 import br.com.igreja.Sys.repository.ProdutoRepository;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;

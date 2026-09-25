@@ -41,6 +41,7 @@ function renderizarProdutos(listaProdutos){
 
         let idFormatado = produto.id.toString().padStart(2, "0");
         let precoFormatado = produto.preco.toFixed(2);
+        console.log(produto);
 
         tabelaProdutos.innerHTML += `
                     <tr>
@@ -50,6 +51,7 @@ function renderizarProdutos(listaProdutos){
                         </td>
                         <td class="coluna-codigo">${idFormatado}</td>
                         <td class="coluna-nome">${produto.nome}</td>
+                        <td class="coluna-categoria">${produto.categoria.nome}</td>
                         <td class="coluna-preco">R$ ${precoFormatado}</td>
                     </tr>
                 `;
@@ -60,7 +62,6 @@ function getProdutos() {
 
     const params = new URLSearchParams(window.location.search);
     const festaId = params.get("idFesta");
-    console.log("deu red", festaId);
     fetch(`/festas/${festaId}/produtos`)
         .then(response => response.json())
         .then(dados => {

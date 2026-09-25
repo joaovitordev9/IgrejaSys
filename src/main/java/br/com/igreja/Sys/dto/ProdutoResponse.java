@@ -1,6 +1,4 @@
 package br.com.igreja.Sys.dto;
-
-import br.com.igreja.Sys.entity.Festa;
 import br.com.igreja.Sys.entity.Produto;
 import lombok.Getter;
 import lombok.Setter;
@@ -14,7 +12,7 @@ public class ProdutoResponse {
     private String nome;
     private String descricao;
     private BigDecimal preco;
-    private Long categoriaId;
+    private CategoriaResumo categoria;
 
     public static ProdutoResponse fromEntity(Produto produto) {
 
@@ -24,7 +22,7 @@ public class ProdutoResponse {
         response.setNome(produto.getNome());
         response.setDescricao(produto.getDescricao());
         response.setPreco(produto.getPreco());
-        response.setCategoriaId( produto.getCategoria().getId());
+        response.setCategoria( CategoriaResumo.fromEntity(produto.getCategoria()));
 
         return response;
     }
