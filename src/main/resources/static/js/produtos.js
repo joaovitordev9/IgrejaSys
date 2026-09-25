@@ -154,7 +154,7 @@ function putProduto() {
         });
 
     const produto = produtos.find(function (produto) {
-        return produto.id == id;
+        return produto.id == produtoId;
     });
     
     produto.nome = produtoAlterado.nome;

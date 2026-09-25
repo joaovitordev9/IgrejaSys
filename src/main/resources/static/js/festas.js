@@ -42,9 +42,9 @@ function renderizarFestas(listaFestas){
         let festa = listaFestas[i];
 
         let idFormatado = festa.id.toString().padStart(2, "0");
-        let dataInicioFormatada = new Date(festa.dataInicio).toLocaleDateString("pt-BR");
-        let dataFimFormatada = new Date(festa.dataFim).toLocaleDateString("pt-BR");
-
+        let dataInicioFormatada = new Date(festa.dataInicio + "T00:00:00").toLocaleDateString("pt-BR");
+        let dataFimFormatada = new Date(festa.dataFim + "T00:00:00").toLocaleDateString("pt-BR");
+        
 
         tabelaFestas.innerHTML += `
             <tr data-id=${festa.id}>
