@@ -12,8 +12,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin(origins = "http://localhost:63342")
 @RestController
-@RequestMapping("/pedidos")
+@RequestMapping("/festas/{idFesta}/pedidos")
 public class PedidoController {
 
     private final PedidoService pedidoService;
@@ -24,8 +25,8 @@ public class PedidoController {
     }
 
     @GetMapping
-    public List<PedidoResponse> listar(){
-        return pedidoService.listar();
+    public List<PedidoResponse> listar(@PathVariable long idFesta){
+        return pedidoService.listar(idFesta);
     }
 
     @GetMapping("/{Id}")
@@ -34,8 +35,8 @@ public class PedidoController {
     }
 
     @PostMapping
-    public PedidoResponse cadastrar(@RequestBody PedidoRequest pedidoRequest){
-        return pedidoService.cadastrar(pedidoRequest);
+    public PedidoResponse cadastrar(@PathVariable long idFesta, @RequestBody PedidoRequest pedidoRequest){
+        return pedidoService.cadastrar(idFesta, pedidoRequest);
     }
 
     @PutMapping("/{Id}")

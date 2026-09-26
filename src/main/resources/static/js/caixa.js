@@ -1,3 +1,14 @@
+const params = new URLSearchParams(window.location.search);
+
+const festaId = params.get("idFesta");
+
+const URL_PEDIDOS = `/festas/${festaId}/pedidos`;
+const URL_PRODUTOS = `/festas/${festaId}/produtos`;
+
+const URL_CATEGORIAS = "/categorias";
+
+
+
 let pedido = [];
 
 function calcularTotal() {
@@ -37,7 +48,7 @@ function calcularTroco() {
 async function carregarCategorias() {
 
     const resposta =
-        await fetch("http://localhost:8080/categorias");
+        await fetch(URL_CATEGORIAS);
 
     const categorias =
         await resposta.json();
@@ -64,17 +75,22 @@ async function carregarCategorias() {
 
 async function carregarProdutos() {
 
-    const resposta =
-        await fetch("http://localhost:8080/produtos");
+    console.log("Festa ID:", festaId);
+    console.log("URL:", URL_PRODUTOS);
 
-    const produtos =
-        await resposta.json();
+    const resposta = await fetch(URL_PRODUTOS);
+
+    console.log("Status:", resposta.status);
+
+    const produtos = await resposta.json();
+
+    console.log("Produtos:", produtos);
 
     produtos.forEach(produto => {
 
         const categoriaDiv =
             document.getElementById(
-                `categoria-${produto.categoriaId}`
+                `categoria-${produto.categoria.id}`
             );
 
         if (!categoriaDiv) {
@@ -271,7 +287,7 @@ async function finalizarPedido() {
 
         const resposta =
             await fetch(
-                "http://localhost:8080/pedidos",
+                URL_PEDIDOS,
                 {
                     method: "POST",
                     headers: {

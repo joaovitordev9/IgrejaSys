@@ -5,9 +5,12 @@ import br.com.igreja.Sys.dto.ItemPedidoRequest;
 import br.com.igreja.Sys.dto.PedidoRequest;
 import br.com.igreja.Sys.dto.PedidoResponse;
 
+import br.com.igreja.Sys.entity.Festa;
 import br.com.igreja.Sys.entity.ItemPedido;
 import br.com.igreja.Sys.entity.Pedido;
 import br.com.igreja.Sys.entity.Produto;
+import br.com.igreja.Sys.repository.CategoriaRepository;
+import br.com.igreja.Sys.repository.FestaRepository;
 import br.com.igreja.Sys.repository.PedidoRepository;
 import br.com.igreja.Sys.repository.ProdutoRepository;
 import org.springframework.stereotype.Service;
@@ -19,18 +22,22 @@ import java.util.List;
 @Service
 public class PedidoService {
 
-    PedidoRepository pedidoRepository;
-    ProdutoRepository produtoRepository;
+    private final ProdutoRepository produtoRepository;
+    private final PedidoRepository pedidoRepository;
+    private final FestaRepository festaRepository;
 
     public PedidoService(PedidoRepository pedidoRepository,
-                         ProdutoRepository produtoRepository) {
+                         ProdutoRepository produtoRepository,
+                         FestaRepository festaRepository) {
         this.pedidoRepository = pedidoRepository;
         this.produtoRepository = produtoRepository;
+        this.festaRepository = festaRepository;
+
     }
 
-    public List<PedidoResponse> listar(){
+    public List<PedidoResponse> listar(long festaId){
 
-        List<Pedido> pedidos = pedidoRepository.findAll();
+        List<Pedido> pedidos = pedidoRepository.findByFestaId(festaId);
 
         return pedidos.stream().map(PedidoResponse::fromEntity).toList();
     }
@@ -40,7 +47,7 @@ public class PedidoService {
         return PedidoResponse.fromEntity(pedido);
     }
 
-    public PedidoResponse cadastrar(PedidoRequest pedidoRequest){
+    public PedidoResponse cadastrar(long festaId, PedidoRequest pedidoRequest){
         Pedido pedido = new Pedido();
         BigDecimal total = BigDecimal.ZERO;
 
@@ -64,6 +71,12 @@ public class PedidoService {
 
             total = total.add(subtotal);
         }
+
+        Festa festa =  festaRepository
+                .findById(festaId)
+                .orElseThrow(() -> new RuntimeException("Festa não encontrada"));
+
+        pedido.setFesta(festa);
 
         pedido.setValorTotal(total);
         pedido = pedidoRepository.save(pedido);

@@ -18,6 +18,7 @@ const btnModalInfoFestaSalvar = document.getElementById("btnModalInfoFestaSalvar
 const btnModalInfoFestaCancelar = document.getElementById("btnModalInfoFestaCancelar");
 const btnFecharModal = document.getElementById("btnFecharModal");
 const btnProdutos = document.getElementById("btnProdutos");
+const btnCaixa = document.getElementById("btnCaixa")
 const btnTabelaFestasAcessar = document.getElementById("btnTabelaFestasAcessar");
 
 // CAMPOS DO FORMULÁRIO
@@ -176,6 +177,7 @@ tabelaFestas.addEventListener("click", function (evento) {
 
     const id = linha.dataset.id;
     btnProdutos.dataset.id = id;
+    btnCaixa.dataset.id = id;
 
     abreModalAcessarFesta();
 });
@@ -189,6 +191,13 @@ btnProdutos.addEventListener("click", function() {
     
     window.location.href = `/produtos.html?idFesta=${idFesta}`;
 })
+
+btnCaixa.addEventListener("click", function() {
+
+    const idFesta = btnCaixa.dataset.id;
+
+    window.location.href = `/caixa.html?idFesta=${idFesta}`;
+});
 
 
 getFestas();
