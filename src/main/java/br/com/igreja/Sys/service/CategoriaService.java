@@ -4,7 +4,10 @@ import br.com.igreja.Sys.dto.CategoriaRequest;
 import br.com.igreja.Sys.dto.CategoriaResponse;
 import br.com.igreja.Sys.entity.Categoria;
 import br.com.igreja.Sys.repository.CategoriaRepository;
+
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -19,6 +22,7 @@ public class CategoriaService {
     public CategoriaResponse cadastrar(CategoriaRequest request) {
         Categoria categoria = request.toEntity();
         categoria = categoriaRepository.save(categoria);
+        System.out.println(categoria.getProdutos());
         return CategoriaResponse.fromEntity(categoria);
     }
 
@@ -51,6 +55,13 @@ public class CategoriaService {
 
     public void excluir(Long id) {
         Categoria categoria = buscarEntidadePorId(id);
+
+            if (!categoria.getProdutos().isEmpty()) {
+                throw new ResponseStatusException(
+                    HttpStatus.CONFLICT,
+                    "A categoria possui produtos vinculados"
+            );
+        }
 
         categoriaRepository.delete(categoria);
     }

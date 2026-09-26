@@ -14,9 +14,6 @@
 
 <body>
     <nav class="barra-navegacao">
-        <div class="botao-inicio">
-            Início
-        </div>
         <div class="botao-voltar">
             Voltar
         </div>
@@ -26,6 +23,9 @@
 
         <div class="botao-principal" id="btnNovaFesta">
             Nova Festa
+        </div>
+        <div class="botao-configuracoes" id="btnConfiguracoes">
+            <img src="/icons/settings.svg" alt="Configurações">
         </div>
     </nav>
 
@@ -40,7 +40,7 @@
                 </label>
                 <input type="text" id="nomeFestaFiltro" name="nomeFesta-filtro">
             </form>
-        
+
         </section>
         <table class="tabela-festas">
             <thead>
@@ -97,7 +97,7 @@
 
             <div id="modalAcessarFesta" class="modal-acessar-festa">
 
-                 <div class="modal-cabecalho">
+                <div class="modal-cabecalho">
                     <h2 id="tituloFesta">Menu da festa</h2>
                     <button id="btnFecharModal">×</button>
                 </div>
@@ -126,6 +126,28 @@
                 </div>
             </div>
         </div>
+
+        <div id="modalConfiguracoes" class="painel-configuracoes">
+
+            <div class="cabecalho-configuracoes">
+                <h2>Configurações</h2>
+
+                <button id="btnFecharConfiguracoes" class="btn-fechar">
+                    ×
+                </button>
+            </div>
+
+            <div class="opcoes-configuracoes">
+
+                <button class="opcao-configuracao" id="btnAcessarCategoria">
+                    <span>Categorias</span>
+                </button>
+
+            </div>
+
+        </div>
+
+        <div id="fundoConfiguracoes" class="fundo-configuracoes"></div>
     </div>
 
     <script src="js/script.js"></script>

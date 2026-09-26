@@ -1,0 +1,27 @@
+.coluna-acoes {
+    width: 20%;
+    min-width: 175px;
+    text-align: center;
+    align-items: center;
+}
+
+.coluna-codigo {
+    width: 10%;
+    text-align: left;
+    align-items: center;
+}
+
+.coluna-nome {
+    width: 70%;
+    text-align: left;
+    align-items: center;
+}
+
+#listaProdutosCategoria {
+    margin-top: 10px;
+    padding-left: 25px;
+}
+
+#listaProdutosCategoria li {
+    margin-bottom: 5px;
+}

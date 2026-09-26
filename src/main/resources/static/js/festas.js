@@ -8,6 +8,7 @@ let festas = [];
 const modalPrincipalFesta = document.getElementById("modalPrincipalFesta");
 const modalInfoFesta = document.getElementById("modalInfoFesta");
 const modalAcessarFesta = document.getElementById("modalAcessarFesta");
+const modalConfiguracoes = document.getElementById("modalConfiguracoes");
 
 // TÍTULOS
 const modalInfoFestaTitulo = document.getElementById("modalInfoFestaTitulo");
@@ -20,6 +21,9 @@ const btnFecharModal = document.getElementById("btnFecharModal");
 const btnProdutos = document.getElementById("btnProdutos");
 const btnCaixa = document.getElementById("btnCaixa")
 const btnTabelaFestasAcessar = document.getElementById("btnTabelaFestasAcessar");
+const btnConfiguracoes = document.getElementById("btnConfiguracoes");
+const btnFecharConfiguracoes = document.getElementById("btnFecharConfiguracoes");
+const btnAcessarCategoria = document.getElementById("btnAcessarCategoria");
 
 // CAMPOS DO FORMULÁRIO
 const inputNomeFesta = document.getElementById("nomeFesta");
@@ -86,6 +90,13 @@ function fechaModalAcessarFesta() {
     modalPrincipalFesta.style.display = "none";
     modalAcessarFesta.style.display = "none";
 }
+function abreModalConfiguracoes() {
+    modalConfiguracoes.style.display = "flex";
+}
+function fechaModalConfiguracoes() {
+    modalConfiguracoes.style.display = "none";
+}
+
 function filtrarFestas() {
     const textoBusca = nomeFestaFiltro.value.toLowerCase();
 
@@ -186,6 +197,13 @@ btnFecharModal.addEventListener("click", function() {
     fechaModalAcessarFesta();
 })
 
+btnConfiguracoes.addEventListener("click", function() {
+    abreModalConfiguracoes();
+})
+btnFecharConfiguracoes.addEventListener("click", function() {
+    fechaModalConfiguracoes()
+})
+
 btnProdutos.addEventListener("click", function() {
     const idFesta = btnProdutos.dataset.id;
     
@@ -198,6 +216,10 @@ btnCaixa.addEventListener("click", function() {
 
     window.location.href = `/caixa.html?idFesta=${idFesta}`;
 });
+
+btnAcessarCategoria.addEventListener("click", function() {
+    window.location.href = `/categoria.html`;
+})
 
 
 getFestas();

@@ -29,6 +29,19 @@ body {
     border-bottom: 1px solid #ddd;
 }
 
+.botao-configuracoes {
+    margin-left: 40px;
+
+    transition: 
+                color 0.2s ease,
+                transform 0.2s ease;
+}
+
+.botao-configuracoes:hover {
+    color: #222;
+    transform: rotate(30deg);
+}
+
 
 
 .titulo-pagina {

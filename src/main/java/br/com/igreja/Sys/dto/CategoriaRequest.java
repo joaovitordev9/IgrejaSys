@@ -16,7 +16,7 @@ public class CategoriaRequest {
         Categoria categoria = new Categoria();
 
         categoria.setNome(nome);
-
+        
         return categoria;
     }
 

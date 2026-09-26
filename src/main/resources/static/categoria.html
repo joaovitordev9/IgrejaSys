@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Categorias</title>
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/botao.css">
+    <link rel="stylesheet" href="css/modal.css">
+    <link rel="stylesheet" href="css/categorias.css">
+</head>
+
+<body>
+
+    <nav class="barra-navegacao">
+
+        <div class="botao-inicio">
+            Início
+        </div>
+
+        <div class="botao-voltar">
+            Voltar
+        </div>
+
+        <h2 class="titulo-pagina">
+            Categorias
+        </h2>
+
+        <div class="botao-principal" id="btnNovaCategoria">
+            Nova Categoria
+        </div>
+
+    </nav>
+
+
+    <div class="corpo">
+
+        <section class="acoes-tabela">
+
+            <form class="filtro">
+
+                <h2 class="titulo-acoes-tabela">
+                    Buscar por categoria
+                </h2>
+
+                <label for="nomeCategoriaFiltro">
+                    Nome da categoria:
+                </label>
+
+                <input type="text" id="nomeCategoriaFiltro" name="nomeCategoriaFiltro">
+
+            </form>
+
+        </section>
+
+
+        <table class="tabela-categorias">
+
+            <thead>
+
+                <tr>
+                    <th class="coluna-acoes">Ações</th>
+                    <th class="coluna-codigo">Código</th>
+                    <th class="coluna-nome">Nome</th>
+                </tr>
+
+            </thead>
+
+            <tbody id="tabelaCategorias">
+
+                <!-- Categorias serão adicionadas pelo JavaScript -->
+
+            </tbody>
+
+        </table>
+
+
+        <!-- Modal principal -->
+
+        <div class="modal" id="modalPrincipalCategorias">
+
+            <div class="modal-info" id="modalInfoCategoria">
+
+                <h2 id="modalInfoCategoriaTitulo"></h2>
+
+                <label for="nomeCategoria">
+                    Nome
+                </label>
+
+                <input type="text" id="nomeCategoria">
+
+
+                <div class="modal-acoes">
+
+                    <button class="btn btn-cancelar" id="btnModalInfoCategoriasCancelar">
+                        Cancelar
+                    </button>
+
+                    <button class="btn btn-criar" id="btnModalInfoCategoriasSalvar" data-acao="">
+                        Salvar
+                    </button>
+
+                </div>
+
+            </div>
+            <!-- Modal de exclusão -->
+
+            <div class="modal-excluir" id="modalCategoriasExcluir">
+
+                <h2>
+                    Excluir categoria
+                </h2>
+
+                <p id="mensagemExclusao">
+                    Tem certeza que deseja excluir esta categoria?
+                </p>
+
+                <div class="modal-acoes">
+
+                    <button class="btn btn-cancelar" id="btnModalExcluirCancelar">
+                        Cancelar
+                    </button>
+
+                    <button class="btn btn-excluir" id="btnModalExcluirConfirmar">
+                        Excluir
+                    </button>
+
+                </div>
+            </div>
+            <div class="modal-excluir" id="modalCategoriaComProdutos">
+
+                <h2>Não foi possível excluir</h2>
+
+                <p>
+                    Não foi possível excluir a categoria porque os seguintes
+                    produtos pertencem a ela:
+                </p>
+
+                <ul id="listaProdutosCategoria">
+                </ul>
+
+                 <p>
+                    Para excluir esta categoria, altere a categoria dos produtos vinculados ou exclua-os primeiro.
+                </p>
+
+                <div class="modal-acoes">
+
+                    <button class="btn btn-cancelar" id="btnFecharCategoriaComProdutos">
+                        Fechar
+                    </button>
+
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+
+    <script src="js/script.js"></script>
+    <script src="js/categorias.js"></script>
+
+</body>
+
+</html>

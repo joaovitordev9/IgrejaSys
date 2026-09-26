@@ -3,12 +3,9 @@ package br.com.igreja.Sys.controller;
 
 import br.com.igreja.Sys.dto.PedidoRequest;
 import br.com.igreja.Sys.dto.PedidoResponse;
-import br.com.igreja.Sys.dto.ProdutoRequest;
-import br.com.igreja.Sys.dto.ProdutoResponse;
 import br.com.igreja.Sys.service.PedidoService;
-import br.com.igreja.Sys.service.ProdutoService;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
 
 import java.util.List;
 

@@ -12,7 +12,7 @@ import lombok.Setter;
 public class CategoriaResponse {
     private Long id;
     private String nome;
-    private List<ProdutoResponse> produtos;
+    private List<ProdutoResumo> produtos;
 
     public static CategoriaResponse fromEntity(Categoria categoria) {
 
@@ -21,7 +21,7 @@ public class CategoriaResponse {
         response.setId(categoria.getId());
         response.setNome(categoria.getNome());
         response.setProdutos(categoria.getProdutos().stream()
-                .map(ProdutoResponse::fromEntity)
+                .map(ProdutoResumo::fromEntity)
                 .toList());
 
         return response;

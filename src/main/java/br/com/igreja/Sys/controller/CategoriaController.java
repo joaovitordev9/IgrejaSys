@@ -46,5 +46,4 @@ public class CategoriaController {
         service.excluir(id);
     }
 
-
 }
