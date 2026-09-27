@@ -25,14 +25,15 @@ public class PedidoService {
     private final ProdutoRepository produtoRepository;
     private final PedidoRepository pedidoRepository;
     private final FestaRepository festaRepository;
+    private final ImpressoraService impressoraService;
 
     public PedidoService(PedidoRepository pedidoRepository,
                          ProdutoRepository produtoRepository,
-                         FestaRepository festaRepository) {
+                         FestaRepository festaRepository, ImpressoraService impressoraService) {
         this.pedidoRepository = pedidoRepository;
         this.produtoRepository = produtoRepository;
         this.festaRepository = festaRepository;
-
+        this.impressoraService = impressoraService;
     }
 
     public List<PedidoResponse> listar(long festaId){
@@ -80,6 +81,8 @@ public class PedidoService {
 
         pedido.setValorTotal(total);
         pedido = pedidoRepository.save(pedido);
+
+        impressoraService.imprimirPedido(pedido);
 
         return PedidoResponse.fromEntity(pedido);
     }
