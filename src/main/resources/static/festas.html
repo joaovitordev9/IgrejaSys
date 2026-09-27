@@ -65,36 +65,69 @@
                 </tr> -->
             </tbody>
         </table>
+
         <div class="modal" id="modalPrincipalFesta">
+
+            <!-- Modal criar/alterar festa -->
             <div class="modal-info" id="modalInfoFesta">
                 <h2 id="modalInfoFestaTitulo"></h2>
+
                 <label for="nomeFesta">Nome</label>
                 <input type="text" id="nomeFesta">
+
                 <label for="inicioFesta">Data de início</label>
                 <input type="date" id="inicioFesta">
+
                 <label for="fimFesta">Data de término</label>
                 <input type="date" id="fimFesta">
-                <div class="modal-acoes">
-                    <button class="btn btn-cancelar" id="btnModalInfoFestaCancelar">Cancelar</button>
-                    <button class="btn btn-criar" id="btnModalInfoFestaSalvar" data-acao="">Salvar</button>
-                </div>
-            </div>
 
-            <div class="modal-excluir" id="modalProdutosExcluir">
-                <h2>Excluir produto</h2>
-                <p id="mensagemExclusao">
-                    Tem certeza que deseja excluir este produto?
-                </p>
                 <div class="modal-acoes">
-                    <button class="btn btn-cancelar" id="btnModalExcluirCancelar">
+                    <button class="btn btn-cancelar" id="btnModalInfoFestaCancelar">
                         Cancelar
                     </button>
-                    <button class="btn btn-excluir" id="btnModalExcluirConfirmar">
-                        Excluir
+
+                    <button class="btn btn-criar" id="btnModalInfoFestaSalvar" data-acao="">
+                        Salvar
                     </button>
                 </div>
             </div>
 
+            <!-- Modal confirmar exclusão -->
+            <div class="modal-excluir" id="modalExcluirFesta">
+
+                <h2>
+                    Excluir Festa
+                </h2>
+
+                <p id="mensagemExclusao">
+                    Tem certeza que deseja excluir esta festa?
+                </p>
+
+                <p>
+                    Todos os dados relacionados serão removidos permanentemente:
+                </p>
+
+                <ul>
+                    <li>Categorias</li>
+                    <li>Produtos</li>
+                    <li>Pedidos</li>
+                    <li>Itens de Pedido</li>
+                </ul>
+
+                <div class="modal-acoes">
+
+                    <button class="btn btn-cancelar" id="btnModalExcluirFestaCancelar">
+                        Cancelar
+                    </button>
+
+                    <button class="btn btn-excluir" id="btnModalExcluirFestaConfirmar">
+                        Excluir
+                    </button>
+
+                </div>
+            </div>
+
+            <!-- Modal acessar festa -->
             <div id="modalAcessarFesta" class="modal-acessar-festa">
 
                 <div class="modal-cabecalho">
@@ -123,8 +156,10 @@
                     <button id="btnExcluir" class="btn-opcao-festa btn-excluir">
                         Excluir
                     </button>
+
                 </div>
             </div>
+
         </div>
 
         <div id="modalConfiguracoes" class="painel-configuracoes">

@@ -19,7 +19,12 @@ const btnModalInfoFestaSalvar = document.getElementById("btnModalInfoFestaSalvar
 const btnModalInfoFestaCancelar = document.getElementById("btnModalInfoFestaCancelar");
 const btnFecharModal = document.getElementById("btnFecharModal");
 const btnProdutos = document.getElementById("btnProdutos");
-const btnCaixa = document.getElementById("btnCaixa")
+const btnCaixa = document.getElementById("btnCaixa");
+const btnExcluir = document.getElementById("btnExcluir");
+const modalExcluirFesta = document.getElementById("modalExcluirFesta");
+const btnModalExcluirFestaCancelar = document.getElementById("btnModalExcluirFestaCancelar");
+const btnModalExcluirFestaConfirmar = document.getElementById("btnModalExcluirFestaConfirmar");
+const btnAlterarFesta = document.getElementById("btnAlterarFesta");
 const btnTabelaFestasAcessar = document.getElementById("btnTabelaFestasAcessar");
 const btnConfiguracoes = document.getElementById("btnConfiguracoes");
 const btnFecharConfiguracoes = document.getElementById("btnFecharConfiguracoes");
@@ -148,7 +153,78 @@ function postFesta() {
             console.log(erro);
         });
 }
+function putFesta() {
 
+    const id = btnAlterarFesta.dataset.id;
+
+    const festaAtualizada = {
+        nome: inputNomeFesta.value,
+        dataInicio: inputInicioFesta.value,
+        dataFim: inputFimFesta.value
+    };
+
+    fetch(`${URL_FESTAS}/${id}`, {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(festaAtualizada)
+    })
+        .then(response => response.json())
+        .then(festaAtualizada => {
+
+            const indice = festas.findIndex(
+                festa => festa.id == id
+            );
+
+            if (indice !== -1) {
+                festas[indice] = festaAtualizada;
+            }
+
+            renderizarFestas(festas);
+
+            limparCamposModalInfoFesta();
+        })
+        .catch(erro => {
+            console.log(erro);
+        });
+}
+function deleteFesta(){
+
+
+    const id = btnExcluir.dataset.id;
+    console.log(btnExcluir);
+    console.log(btnAlterarFesta);
+    console.log(btnAcessarCategoria);
+    console.log(btnExcluir.dataset.id);
+
+    fetch(`${URL_FESTAS}/${id}`, {
+        method: "DELETE"
+    })
+        .then(() => {
+
+            festas = festas.filter(f => f.id != id);
+
+            renderizarFestas(festas);
+
+            modalExcluirFesta.style.display = "none";
+            modalAcessarFesta.style.display = "none";
+            modalPrincipalFesta.style.display = "none";
+        })
+        .catch(erro => {
+            console.log(erro);
+        });
+}
+
+function abreModalExcluirFesta() {
+    modalAcessarFesta.style.display = "none";
+    modalExcluirFesta.style.display = "flex";
+}
+
+function fechaModalExcluirFesta() {
+    modalExcluirFesta.style.display = "none";
+    modalAcessarFesta.style.display = "flex";
+}
 
 nomeFestaFiltro.addEventListener("input", function() {
     filtrarFestas();
@@ -167,13 +243,13 @@ btnModalInfoFestaCancelar.addEventListener("click", function() {
 btnModalInfoFestaSalvar.addEventListener("click", function() {
     
     const acao = btnModalInfoFestaSalvar.dataset.acao;
-    console.log(acao);
+
 
     if (acao === "criar") {
         postFesta();
     }
     if (acao === "alterar") {
-        // putProduto();
+        putFesta();
     }
     fechaModalInfoFesta();
 })
@@ -189,6 +265,8 @@ tabelaFestas.addEventListener("click", function (evento) {
     const id = linha.dataset.id;
     btnProdutos.dataset.id = id;
     btnCaixa.dataset.id = id;
+    btnExcluir.dataset.id = id;
+    btnAlterarFesta.dataset.id = id;
 
     abreModalAcessarFesta();
 });
@@ -215,6 +293,35 @@ btnCaixa.addEventListener("click", function() {
     const idFesta = btnCaixa.dataset.id;
 
     window.location.href = `/caixa.html?idFesta=${idFesta}`;
+});
+
+btnExcluir.addEventListener("click", function () {
+    abreModalExcluirFesta();
+});
+
+btnModalExcluirFestaCancelar.addEventListener("click", function () {
+    fechaModalExcluirFesta();
+});
+
+btnModalExcluirFestaConfirmar.addEventListener("click", function () {
+    deleteFesta();
+});
+
+btnAlterarFesta.addEventListener("click", function () {
+
+    const id = btnAlterarFesta.dataset.id;
+
+    const festa = festas.find(f => f.id == id);
+
+    inputNomeFesta.value = festa.nome;
+    inputInicioFesta.value = festa.dataInicio;
+    inputFimFesta.value = festa.dataFim;
+
+    btnModalInfoFestaSalvar.dataset.acao = "alterar";
+
+    fechaModalAcessarFesta();
+
+    abreModalInfoFesta("Alterar Festa");
 });
 
 btnAcessarCategoria.addEventListener("click", function() {

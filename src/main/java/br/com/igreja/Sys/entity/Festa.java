@@ -21,10 +21,10 @@ public class Festa {
     private LocalDate dataInicio;
     private LocalDate dataFim;
 
-    @OneToMany(mappedBy = "festa")
+    @OneToMany(mappedBy = "festa",cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Produto> produtos;
 
-    @OneToMany(mappedBy = "festa")
+    @OneToMany(mappedBy = "festa", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Pedido> pedidos;
 
     @CreationTimestamp 
