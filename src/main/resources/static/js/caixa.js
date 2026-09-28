@@ -95,7 +95,7 @@ async function carregarProdutos() {
         if (!categoriaDiv) {
             return;
         }
-
+        
         categoriaDiv.innerHTML += `
             <div
                 class="produto"
