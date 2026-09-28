@@ -59,16 +59,19 @@ async function carregarCategorias() {
     area.innerHTML = "";
 
     categorias.forEach(categoria => {
-        area.innerHTML += `
-            <h2 class="titulo-categoria">
-                ${categoria.nome}
-            </h2>
+        if(categoria.produtos.length > 0 && existeProdutoFesta(categoria.produtos)) {
+            area.innerHTML += `
+                <h2 class="titulo-categoria">
+                    ${categoria.nome}
+                </h2>
+    
+                <div
+                    class="categoria"
+                    id="categoria-${categoria.id}">
+                </div>
+            `;
+        }
 
-            <div
-                class="categoria"
-                id="categoria-${categoria.id}">
-            </div>
-        `;
     });
 }
 
@@ -95,7 +98,7 @@ async function carregarProdutos() {
         if (!categoriaDiv) {
             return;
         }
-        
+
         categoriaDiv.innerHTML += `
             <div
                 class="produto"
@@ -320,6 +323,17 @@ async function iniciar() {
     await carregarCategorias();
 
     await carregarProdutos();
+}
+
+function existeProdutoFesta(produtos) {
+    for (let i = 0; i < produtos.length; i++) {
+        const produto = produtos[i];
+        if (produto.festa.id == festaId) {
+            return true;
+        }   
+    }
+
+    return false;
 }
 
 iniciar();

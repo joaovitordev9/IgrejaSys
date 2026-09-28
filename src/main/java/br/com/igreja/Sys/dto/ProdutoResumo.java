@@ -12,6 +12,7 @@ public class ProdutoResumo {
     private String nome;
     private String descricao;
     private BigDecimal preco;
+    private FestaResponse festa;
 
     public static ProdutoResumo fromEntity(Produto produto) {
 
@@ -20,7 +21,7 @@ public class ProdutoResumo {
         resumo.setId(produto.getId());
         resumo.setNome(produto.getNome());
         resumo.setPreco(produto.getPreco());
-
+        resumo.setFesta(FestaResponse.fromEntity(produto.getFesta()));
         return resumo;
     }
 }
