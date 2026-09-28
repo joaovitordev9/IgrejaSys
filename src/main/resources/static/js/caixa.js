@@ -59,7 +59,6 @@ async function carregarCategorias() {
     area.innerHTML = "";
 
     categorias.forEach(categoria => {
-
         area.innerHTML += `
             <h2 class="titulo-categoria">
                 ${categoria.nome}
