@@ -50,15 +50,7 @@
 }
 
 .modal-info input {
-    height: 40px;
-    padding: 0 10px;
-
-    margin-bottom: 15px;
-
-    border: 1px solid #ccc;
-    border-radius: 3px;
-
-    font-size: 14px;
+   
 }
 
 .modal-info input:focus {

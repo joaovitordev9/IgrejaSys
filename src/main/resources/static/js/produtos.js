@@ -66,25 +66,28 @@ function renderizarCategorias() {
 
     categorias.forEach(categoria => {
 
-        inputCategoria.innerHTML += `
-            <option value="${categoria.id}">
-                ${categoria.nome}
-            </option>
-        `;
+        const option = document.createElement("option");
+
+        option.value = categoria.id;
+        option.textContent = categoria.nome;
+
+        inputCategoria.appendChild(option);
     });
 }
 
-function getCategorias() {
+async function getCategorias() {
 
-    fetch(URL_CATEGORIAS)
-        .then(response => response.json())
-        .then(dados => {
+    return fetch(URL_CATEGORIAS)
+        .then(function (response) {
+            return response.json();
+        })
+        .then(function (dados) {
 
             categorias = dados;
 
             renderizarCategorias();
         })
-        .catch(erro => {
+        .catch(function (erro) {
             console.log(erro);
         });
 }
@@ -135,10 +138,11 @@ function postProduto() {
 function putProduto() {
 
     const produtoId = btnModalInfoProdutosSalvar.dataset.id;
+
     const produtoAlterado = {
         nome: inputNome.value,
         preco: parseFloat(inputPreco.value),
-        categoriaId: inputCategoria.value
+        categoriaId: Number(inputCategoria.value)
     };
 
     fetch(`/festas/${festaId}/produtos/${produtoId}`, {
@@ -148,19 +152,28 @@ function putProduto() {
         },
         body: JSON.stringify(produtoAlterado)
     })
-        .then(response => response.json())
-        .catch(erro => {
+        .then(function (response) {
+
+            if (!response.ok) {
+                throw new Error("Erro ao alterar produto");
+            }
+
+            return response.json();
+        })
+        .then(function (produtoAtualizado) {
+
+            const produto = produtos.find(function (produto) {
+                return produto.id == produtoId;
+            });
+
+            produto.nome = produtoAtualizado.nome;
+            produto.preco = produtoAtualizado.preco;
+            produto.categoria = produtoAtualizado.categoria;
+            renderizarProdutos(produtos);
+        })
+        .catch(function (erro) {
             console.log(erro);
         });
-
-    const produto = produtos.find(function (produto) {
-        return produto.id == produtoId;
-    });
-    
-    produto.nome = produtoAlterado.nome;
-    produto.preco = produtoAlterado.preco;
-    produto.categoriaId = produtoAlterado.categoriaId;
-        
 }
 
 function deleteProduto(){
@@ -214,12 +227,18 @@ function limparCamposModalInfoProdutos() {
     inputPreco.value = "";
 
     if (categorias.length > 0) {
-        inputCategoria.value = categorias[0].id;
+        inputCategoria.content = categorias[0].id;
     }
 }
-function carregarDadosProdutoNoModal(produto) {
+async function carregarDadosProdutoNoModal(produto) {
+
+    await getCategorias();
+
     inputNome.value = produto.nome;
+
     inputPreco.value = produto.preco;
+
+    inputCategoria.value = produto.categoria.id;
 }
 
 function filtrarProdutos() {
@@ -232,6 +251,41 @@ function filtrarProdutos() {
     renderizarProdutos(produtosFiltrados);
 }
 
+function validarCampos(campos) {
+
+    for (const campo of campos) {
+
+        if (campo.elemento.validity.valueMissing) {
+            alert("O campo " + campo.nome + " é obrigatório.");
+            campo.elemento.focus();
+
+            return false;
+        }
+
+        if (campo.elemento.validity.badInput) {
+            alert("O campo " + campo.nome + " deve ser um número.");
+            campo.elemento.focus();
+
+            return false;
+        }
+
+        if (campo.elemento.validity.rangeUnderflow) {
+            alert("O campo " + campo.nome + " deve ser maior ou igual a " + campo.elemento.min + ".");
+            campo.elemento.focus();
+
+            return false;
+        }
+
+        if (campo.elemento.validity.rangeOverflow) {
+            alert("O campo " + campo.nome + " deve ser menor ou igual a " + campo.elemento.max + ".");
+            campo.elemento.focus();
+
+            return false;
+        }
+    }
+
+    return true;
+}
 
 
 
@@ -257,15 +311,28 @@ btnModalInfoProdutosSalvar.addEventListener("click", function() {
     console.log(acao);
 
     if (acao === "criar") {
+        if (!validarCampos([
+            { elemento: inputNome, nome: "Nome" },
+            { elemento: inputPreco, nome: "Preço"},
+            { elemento: inputCategoria, nome: "Categoria" }
+        ])) {
+            return;
+        }
         postProduto();
     }
     if (acao === "alterar") {
+        if (!validarCampos([
+            { elemento: inputNome, nome: "Nome" },
+            { elemento: inputPreco, nome: "Preço"},
+            { elemento: inputCategoria, nome: "Categoria" }
+        ])) {
+            return;
+        }
         putProduto();
     }
 
     limparCamposModalInfoProdutos();
     fechaModalInfoProduto();
-    renderizarProdutos(produtos);
 })
 
 btnModalExcluirCancelar.addEventListener("click", function() {

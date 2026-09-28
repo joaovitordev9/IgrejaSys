@@ -72,13 +72,13 @@
                 <h2 id="modalInfoProdutoTitulo"></h2>
 
                 <label for="nomeProduto">Nome</label>
-                <input type="text" id="nomeProduto">
+                <input type="text" id="nomeProduto" required>
 
                 <label for="precoProduto">Preço</label>
-                <input type="number" id="precoProduto" step="0.01">
+                <input type="number" id="precoProduto" step="1.00" min="0" max="1000000" required>
 
                 <label for="categoriaProduto">Categoria</label>
-                <select id="categoriaProduto">
+                <select id="categoriaProduto" required>
 
                 </select>
 

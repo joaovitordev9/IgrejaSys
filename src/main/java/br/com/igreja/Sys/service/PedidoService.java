@@ -9,7 +9,6 @@ import br.com.igreja.Sys.entity.Festa;
 import br.com.igreja.Sys.entity.ItemPedido;
 import br.com.igreja.Sys.entity.Pedido;
 import br.com.igreja.Sys.entity.Produto;
-import br.com.igreja.Sys.repository.CategoriaRepository;
 import br.com.igreja.Sys.repository.FestaRepository;
 import br.com.igreja.Sys.repository.PedidoRepository;
 import br.com.igreja.Sys.repository.ProdutoRepository;
