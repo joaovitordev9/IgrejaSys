@@ -4,10 +4,8 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 
 import lombok.Getter;
-import lombok.Setter;
 
 @Getter 
-@Setter 
 public class RelatorioVendasPorDiaResponse {
     private LocalDate data;
     private BigDecimal total;
@@ -16,7 +14,4 @@ public class RelatorioVendasPorDiaResponse {
         this.data = data;
         this.total = total;
     }
-
-    
-
 }

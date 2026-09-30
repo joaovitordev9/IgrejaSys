@@ -1,5 +1,6 @@
 package br.com.igreja.Sys.repository;
 
+import br.com.igreja.Sys.dto.RelatorioQuantidadeProdutoVendidoResponse;
 import br.com.igreja.Sys.dto.RelatorioVendasPorDiaResponse;
 import br.com.igreja.Sys.entity.Pedido;
 
@@ -22,6 +23,7 @@ public interface PedidoRepository extends JpaRepository<Pedido, Long> {
         ORDER BY cast(p.dataCriacao as LocalDate)
         """)
     List<RelatorioVendasPorDiaResponse> buscarVendasPorDia(Long festaId);
+
 
 
 }
