@@ -7,6 +7,7 @@ import br.com.igreja.Sys.dto.FestaDetalhesResponse;
 import br.com.igreja.Sys.dto.FestaRequest;
 import br.com.igreja.Sys.dto.FestaResponse;
 import br.com.igreja.Sys.service.FestaService;
+import jakarta.validation.Valid;
 
 import java.util.List;
 
@@ -39,12 +40,12 @@ public class FestaController {
     }
     
     @PostMapping
-    public FestaResponse cadastrar(@RequestBody FestaRequest request) {
+    public FestaResponse cadastrar(@Valid @RequestBody FestaRequest request) {
         return festaService.cadastrar(request);
     }
 
     @PutMapping("/{Id}")
-    public FestaResponse alterar(@PathVariable long Id, @RequestBody FestaRequest request){
+    public FestaResponse alterar(@PathVariable long Id, @Valid @RequestBody FestaRequest request){
         return festaService.alterar(Id, request);
     }
 

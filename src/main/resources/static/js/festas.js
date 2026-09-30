@@ -70,39 +70,6 @@ function renderizarFestas(listaFestas){
         `;
     }
 }
-function abreModalInfoFesta(titulo) {
-
-    modalInfoFestaTitulo.textContent = titulo;
-    modalPrincipalFesta.style.display = "flex";
-    modalInfoFesta.style.display = "flex";
-    inputNomeFesta.focus();
-}
-function fechaModalInfoFesta() {
-    modalPrincipalFesta.style.display = "none";
-    modalInfoFesta.style.display = "none";
-}
-function limparCamposModalInfoFesta() {
-    inputNomeFesta.value = "";
-    inputInicioFesta.value = "";
-    inputFimFesta.value = "";
-}
-function abreModalAcessarFesta() {
-
-    modalPrincipalFesta.style.display = "flex";
-    modalAcessarFesta.style.display = "flex";
-}
-function fechaModalAcessarFesta() {
-
-    modalPrincipalFesta.style.display = "none";
-    modalAcessarFesta.style.display = "none";
-}
-function abreModalConfiguracoes() {
-    modalConfiguracoes.style.display = "flex";
-}
-function fechaModalConfiguracoes() {
-    modalConfiguracoes.style.display = "none";
-}
-
 function filtrarFestas() {
     const textoBusca = nomeFestaFiltro.value.toLowerCase();
 
@@ -112,6 +79,31 @@ function filtrarFestas() {
 
     renderizarFestas(festasFiltradas);
 }
+function validarFesta(festa) {
+    const nome = festa.nome;
+    const dataInicio = festa.dataInicio;
+    const dataFim = festa.dataFim;
+
+
+    if (!nome || nome.trim() === "") {
+        return false;
+    }
+
+    if (!dataInicio || !dataFim) {
+        return false;
+    }
+
+    const inicio = new Date(dataInicio);
+    const fim = new Date(dataFim);
+
+    if (fim < inicio) {
+        return false;
+    }
+
+    return true;
+}
+
+// REQUISICOES
 function getFestas() {
     fetch(URL_FESTAS)
         .then(response => response.json())
@@ -125,14 +117,7 @@ function getFestas() {
             console.log(erro);
         });
 }
-function postFesta() {
-
-    const novaFesta = {
-        nome: inputNomeFesta.value,
-        dataInicio: inputInicioFesta.value,
-        dataFim: inputFimFesta.value
-    }
-
+function postFesta(novaFesta) {
 
     fetch(URL_FESTAS, {
         method: "POST",
@@ -154,15 +139,11 @@ function postFesta() {
             console.log(erro);
         });
 }
-function putFesta() {
+function putFesta(festaAtualizada) {
 
     const id = btnAlterarFesta.dataset.id;
 
-    const festaAtualizada = {
-        nome: inputNomeFesta.value,
-        dataInicio: inputInicioFesta.value,
-        dataFim: inputFimFesta.value
-    };
+    console.log(festaAtualizada);
 
     fetch(`${URL_FESTAS}/${id}`, {
         method: "PUT",
@@ -217,14 +198,49 @@ function deleteFesta(){
         });
 }
 
+// MODAIS
 function abreModalExcluirFesta() {
     modalAcessarFesta.style.display = "none";
     modalExcluirFesta.style.display = "flex";
 }
-
 function fechaModalExcluirFesta() {
     modalExcluirFesta.style.display = "none";
     modalAcessarFesta.style.display = "flex";
+}
+function abreModalInfoFesta(titulo) {
+
+    modalInfoFestaTitulo.textContent = titulo;
+    modalPrincipalFesta.style.display = "flex";
+    modalInfoFesta.style.display = "flex";
+    inputNomeFesta.focus();
+}
+function fechaModalInfoFesta() {
+    modalPrincipalFesta.style.display = "none";
+    modalInfoFesta.style.display = "none";
+}
+function limparCamposModalInfoFesta() {
+    inputNomeFesta.value = "";
+    inputInicioFesta.value = "";
+    inputFimFesta.value = "";
+}
+function abreModalAcessarFesta() {
+
+    modalPrincipalFesta.style.display = "flex";
+    modalAcessarFesta.style.display = "flex";
+}
+function fechaModalAcessarFesta() {
+
+    modalPrincipalFesta.style.display = "none";
+    modalAcessarFesta.style.display = "none";
+}
+function abreModalConfiguracoes() {
+    modalConfiguracoes.style.display = "flex";
+}
+function fechaModalConfiguracoes() {
+    modalConfiguracoes.style.display = "none";
+}
+function alerta(mensagem) {
+    alert(mensagem);
 }
 
 nomeFestaFiltro.addEventListener("input", function() {
@@ -244,13 +260,22 @@ btnModalInfoFestaCancelar.addEventListener("click", function() {
 btnModalInfoFestaSalvar.addEventListener("click", function() {
     
     const acao = btnModalInfoFestaSalvar.dataset.acao;
+    const novaFesta = {
+        nome: inputNomeFesta.value,
+        dataInicio: inputInicioFesta.value,
+        dataFim: inputFimFesta.value
+    }
 
+    if (!validarFesta(novaFesta)) {
+        alerta("Todos os campos devem estar preenchidos, e a data de início deve ser anterior a data de fim.");
+        return;
+    }
 
     if (acao === "criar") {
-        postFesta();
+        postFesta(novaFesta);
     }
     if (acao === "alterar") {
-        putFesta();
+        putFesta(novaFesta);
     }
     fechaModalInfoFesta();
 })
@@ -336,6 +361,5 @@ btnAlterarFesta.addEventListener("click", function () {
 btnAcessarCategoria.addEventListener("click", function() {
     window.location.href = `/categoria.html`;
 })
-
 
 getFestas();

@@ -32,6 +32,12 @@ public class FestaService {
     }
 
     public FestaResponse cadastrar(FestaRequest request) {
+        if (request.getDataFim().isBefore(request.getDataInicio())) {
+            throw new IllegalArgumentException(
+                "A data de término não pode ser anterior à data de início"
+            );
+        }
+
         Festa festa = new Festa();
         request.preencher(festa);
 
@@ -40,12 +46,18 @@ public class FestaService {
     }
 
     public FestaResponse alterar(long id, FestaRequest request) {
+        if (request.getDataFim().isBefore(request.getDataInicio())) {
+            throw new IllegalArgumentException(
+                "A data de término não pode ser anterior à data de início"
+            );
+        }
         Festa festa = festaRepository.findById(id).orElseThrow(() -> new RuntimeException("Festa não encontrada"));
 
         festa.setNome(request.getNome());
         festa.setDataInicio(request.getDataInicio());
         festa.setDataFim(request.getDataFim());
 
+        festa = festaRepository.save(festa);
         return FestaResponse.fromEntity(festa);
     }
 
