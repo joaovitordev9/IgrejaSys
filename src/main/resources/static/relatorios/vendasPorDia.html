@@ -28,45 +28,60 @@
         </h2>
     </nav>
 
-    <main class="corpo-reduzido">
-
-        <section class="cabecalho-relatorio">
-
-            <div>
-                <h2>Vendas por dia</h2>
-                <p>Confira o total vendido em cada dia da festa.</p>
-            </div>
-
-            <div class="resumo-total">
-                <span>Total vendido</span>
-                <strong id="totalVendido">R$ 0,00</strong>
-            </div>
-
-        </section>
-
-        <section class="tabela-container">
-
-            <table class="tabela-vendas">
-
-                <thead>
-                    <tr>
-                        <th>Data</th>
-                        <th>Total vendido</th>
-                    </tr>
-                </thead>
-
-                <tbody id="tabelaVendas">
-                </tbody>
-
-            </table>
-
-            <p id="mensagemVazia" class="mensagem-vazia">
-                Nenhuma venda encontrada.
-            </p>
-
-        </section>
-
+    <main class="dashboard">
+        <div class="card-relatorio">
+            <section class="cabecalho-relatorio">
+                <div>
+                    <h2>Vendas por dia</h2>
+                    <p>Confira o total vendido em cada dia da festa.</p>
+                </div>
+                <div class="resumo-total">
+                    <span>Total vendido</span>
+                    <strong id="totalVendido">R$ 0,00</strong>
+                </div>
+            </section>
+            <section class="tabela-container">
+                <table class="tabela-vendas">
+                    <thead>
+                        <tr>
+                            <th>Data</th>
+                            <th>Total vendido</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tabelaVendasPorDia">
+                    </tbody>
+                </table>
+                <p id="mensagemVazia" class="mensagem-vazia">
+                    Nenhuma venda encontrada.
+                </p>
+            </section>
+        </div>
+        <div class="card-relatorio">
+            <section class="cabecalho-relatorio">
+                <div>
+                    <h2>Quantidade vendida por produto</h2>
+                    <p>Confira a quantidade vendida de cada produto na festa.</p>
+                </div>
+            </section>
+            <section class="tabela-container">
+                <table class="tabela-vendas">
+                    <thead>
+                        <tr>
+                            <th>Produto</th>
+                            <th>Quantidade vendida</th>
+                            <th>Valor total</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tabelaQuantidadeVendidaPorProduto">
+                    </tbody>
+                </table>
+                <p class="mensagem-vazia">
+                    Nenhuma venda encontrada.
+                </p>
+            </section>
+        </div>
     </main>
+    
 
     <script src="../js/script.js"></script>
     <script src="../js/relatorio.js"></script>

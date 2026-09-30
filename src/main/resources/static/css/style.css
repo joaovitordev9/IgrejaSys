@@ -18,9 +18,18 @@ body {
     margin: auto;
 
 }
-.corpo-reduzido {
-    width: 50%;
+.card-relatorio {
+    width: 80%;
     margin: auto;
+
+}
+.dashboard {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 25px;
+
+    align-items: start;
+    padding: 30px;
 
 }
 

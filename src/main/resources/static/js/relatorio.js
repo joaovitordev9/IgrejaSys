@@ -3,17 +3,19 @@ const URL_RELATORIO = "/relatorios/vendas-por-dia";
 const params = new URLSearchParams(window.location.search);
 const festaId = params.get("idFesta");
 
-const tabelaVendas = document.getElementById("tabelaVendas");
+const tabelaQuantidadeVendidaPorProduto = document.getElementById("tabelaQuantidadeVendidaPorProduto");
+const tabelaVendasPorDia = document.getElementById("tabelaVendasPorDia");
 const mensagemVazia = document.getElementById("mensagemVazia");
 const totalVendido = document.getElementById("totalVendido");
 
 
 document.addEventListener("DOMContentLoaded", function () {
-    carregarRelatorio();
+    carregarRelatorioVendasPorDia();
+    carregarRelatorioQuantidadeProdutoVendido();
 });
 
 
-function carregarRelatorio() {
+function carregarRelatorioVendasPorDia() {
     fetch(`/festas/${festaId}/relatorios/vendas-por-dia`)
         .then(function (response) {
 
@@ -25,7 +27,7 @@ function carregarRelatorio() {
         })
         .then(function (vendas) {
 
-            mostrarRelatorio(vendas);
+            mostrarRelatorioVendasPorDia(vendas);
         })
         .catch(function (error) {
 
@@ -37,11 +39,58 @@ function carregarRelatorio() {
             mensagemVazia.style.display = "block";
         });
 }
+function carregarRelatorioQuantidadeProdutoVendido() {
+    fetch(`/festas/${festaId}/relatorios/quantidade-produto-vendido`)
+        .then(function (response) {
 
+            if (!response.ok) {
+                throw new Error("Erro ao carregar relatório");
+            }
 
-function mostrarRelatorio(vendas) {
+            return response.json();
+        })
+        .then(function (vendas) {
 
-    tabelaVendas.innerHTML = "";
+            mostrarRelatorioQuantidadeProdutoVendido(vendas);
+        })
+        .catch(function (error) {
+
+            console.error(error);
+        });
+}
+
+function mostrarRelatorioQuantidadeProdutoVendido(vendas) {
+
+    tabelaQuantidadeVendidaPorProduto.innerHTML = "";
+
+    if (vendas.length === 0){
+        return;
+    }
+
+    vendas.forEach(function (venda) {
+
+        const linha = document.createElement("tr");
+
+        const colunaProduto = document.createElement("td");
+        colunaProduto.textContent = venda.produto;
+
+        const colunaQuantidade = document.createElement("td");
+        colunaQuantidade.textContent = venda.quantidadeVendida;
+
+        const colunaTotal = document.createElement("td");
+        colunaTotal.textContent = formatarMoeda(venda.valorTotal);
+
+        linha.appendChild(colunaProduto);
+        linha.appendChild(colunaQuantidade);
+        linha.appendChild(colunaTotal);
+
+        tabelaQuantidadeVendidaPorProduto.appendChild(linha);
+    });
+}
+
+function mostrarRelatorioVendasPorDia(vendas) {
+
+    tabelaVendasPorDia.innerHTML = "";
 
     if (vendas.length === 0) {
 
@@ -74,7 +123,7 @@ function mostrarRelatorio(vendas) {
         linha.appendChild(colunaData);
         linha.appendChild(colunaTotal);
 
-        tabelaVendas.appendChild(linha);
+        tabelaVendasPorDia.appendChild(linha);
     });
 
     totalVendido.textContent = formatarMoeda(total);
