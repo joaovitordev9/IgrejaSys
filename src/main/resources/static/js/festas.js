@@ -29,6 +29,7 @@ const btnTabelaFestasAcessar = document.getElementById("btnTabelaFestasAcessar")
 const btnConfiguracoes = document.getElementById("btnConfiguracoes");
 const btnFecharConfiguracoes = document.getElementById("btnFecharConfiguracoes");
 const btnAcessarCategoria = document.getElementById("btnAcessarCategoria");
+const btnRelatorios = document.getElementById("btnRelatorios");
 
 // CAMPOS DO FORMULÁRIO
 const inputNomeFesta = document.getElementById("nomeFesta");
@@ -265,6 +266,7 @@ tabelaFestas.addEventListener("click", function (evento) {
     const id = linha.dataset.id;
     btnProdutos.dataset.id = id;
     btnCaixa.dataset.id = id;
+    btnRelatorios.dataset.id = id;
     btnExcluir.dataset.id = id;
     btnAlterarFesta.dataset.id = id;
 
@@ -294,6 +296,13 @@ btnCaixa.addEventListener("click", function() {
 
     window.location.href = `/caixa.html?idFesta=${idFesta}`;
 });
+
+btnRelatorios.addEventListener("click", function() {
+    const idFesta = btnRelatorios.dataset.id;
+
+    window.location.href = `/relatorios/vendasPorDia.html?idFesta=${idFesta}`;
+
+})
 
 btnExcluir.addEventListener("click", function () {
     abreModalExcluirFesta();

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Relatório de Vendas</title>
+
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/botao.css">
+    <link rel="stylesheet" href="../css/relatorio.css">
+</head>
+
+<body>
+
+    <nav class="barra-navegacao">
+        <div class="botao-inicio">
+            Início
+        </div>
+
+        <div class="botao-voltar">
+            Voltar
+        </div>
+
+        <h2 class="titulo-pagina">
+            Vendas por dia
+        </h2>
+    </nav>
+
+    <main class="corpo-reduzido">
+
+        <section class="cabecalho-relatorio">
+
+            <div>
+                <h2>Vendas por dia</h2>
+                <p>Confira o total vendido em cada dia da festa.</p>
+            </div>
+
+            <div class="resumo-total">
+                <span>Total vendido</span>
+                <strong id="totalVendido">R$ 0,00</strong>
+            </div>
+
+        </section>
+
+        <section class="tabela-container">
+
+            <table class="tabela-vendas">
+
+                <thead>
+                    <tr>
+                        <th>Data</th>
+                        <th>Total vendido</th>
+                    </tr>
+                </thead>
+
+                <tbody id="tabelaVendas">
+                </tbody>
+
+            </table>
+
+            <p id="mensagemVazia" class="mensagem-vazia">
+                Nenhuma venda encontrada.
+            </p>
+
+        </section>
+
+    </main>
+
+    <script src="../js/script.js"></script>
+    <script src="../js/relatorio.js"></script>
+
+</body>
+
+</html>

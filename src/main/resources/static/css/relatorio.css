@@ -1,0 +1,132 @@
+
+.container {
+    width: 90%;
+    max-width: 1000px;
+
+    margin: 35px auto;
+}
+
+/* CABEÇALHO */
+
+.cabecalho-relatorio {
+    margin: 25px auto 0;
+    width: 100%;
+
+    padding: 20px;
+
+    background-color: white;
+
+    border: 1px solid #ddd;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+}
+
+.cabecalho-relatorio h2 {
+    margin: 0 0 8px 0;
+
+    font-size: 22px;
+}
+
+.cabecalho-relatorio p {
+    margin: 0;
+
+    color: #444;
+}
+
+/* TOTAL */
+
+.resumo-total {
+    min-width: 200px;
+
+    padding: 18px 22px;
+
+    background-color: lightgrey;
+
+    border-radius: 3px;
+
+    text-align: right;
+}
+
+.resumo-total span {
+    display: block;
+
+    margin-bottom: 6px;
+
+    color: #444;
+    font-size: 14px;
+}
+
+.resumo-total strong {
+    font-size: 22px;
+}
+
+/* TABELA */
+
+/* .tabela-container {
+    overflow: hidden;
+
+    background-color: #222222;
+
+    border-radius: 8px;
+} */
+
+/* .tabela-vendas {
+    width: 100%;
+
+    border-collapse: collapse;
+} */
+
+/* .tabela-vendas th,
+.tabela-vendas td {
+    padding: 16px 20px;
+
+    text-align: left;
+
+    border-bottom: 1px solid #333333;
+}
+
+.tabela-vendas th {
+    background-color: #292929;
+
+    color: #aaaaaa;
+
+    font-size: 14px;
+    font-weight: normal;
+} */
+
+/* .tabela-vendas td {
+    font-size: 16px;
+}
+
+.tabela-vendas tbody tr:hover {
+    background-color: #292929;
+}
+
+.tabela-vendas td:last-child {
+    text-align: right;
+
+    font-weight: bold;
+}
+
+.tabela-vendas th:last-child {
+    text-align: right;
+} */
+
+/* MENSAGEM */
+
+.mensagem-vazia {
+    display: none;
+
+    padding: 35px;
+
+    margin: 0;
+
+    text-align: center;
+
+    color: #aaaaaa;
+}

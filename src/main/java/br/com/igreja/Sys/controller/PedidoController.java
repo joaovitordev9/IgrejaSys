@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@CrossOrigin(origins = "http://localhost:63342")
 @RestController
+@CrossOrigin(origins = "http://localhost:63342")
 @RequestMapping("/festas/{idFesta}/pedidos")
 public class PedidoController {
 

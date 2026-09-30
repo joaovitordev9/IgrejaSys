@@ -18,6 +18,11 @@ body {
     margin: auto;
 
 }
+.corpo-reduzido {
+    width: 50%;
+    margin: auto;
+
+}
 
 .barra-navegacao {
     width: 100%;
