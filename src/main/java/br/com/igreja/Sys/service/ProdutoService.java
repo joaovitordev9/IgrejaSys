@@ -8,8 +8,11 @@ import br.com.igreja.Sys.entity.Festa;
 import br.com.igreja.Sys.entity.Produto;
 import br.com.igreja.Sys.repository.CategoriaRepository;
 import br.com.igreja.Sys.repository.FestaRepository;
+import br.com.igreja.Sys.repository.ItemPedidoRepository;
 import br.com.igreja.Sys.repository.ProdutoRepository;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -19,12 +22,14 @@ public class ProdutoService {
     private final ProdutoRepository produtoRepository;
     private final CategoriaRepository categoriaRepository;    
     private final FestaRepository festaRepository;
+    private final  ItemPedidoRepository itemPedidoRepository;
 
 
-    public ProdutoService(ProdutoRepository produtoRepository, CategoriaRepository categoriaRepository, FestaRepository festaRepository) {
+    public ProdutoService(ProdutoRepository produtoRepository, CategoriaRepository categoriaRepository, FestaRepository festaRepository, ItemPedidoRepository itemPedidoRepository) {
         this.produtoRepository = produtoRepository;
         this.categoriaRepository = categoriaRepository;
         this.festaRepository = festaRepository;
+        this.itemPedidoRepository = itemPedidoRepository;
     }
 
     public List<ProdutoResponse> listar(long festaId){
@@ -72,7 +77,14 @@ public class ProdutoService {
         return ProdutoResponse.fromEntity(produto);
     }
 
-    public void deletar(long id){
+    public void deletar(Long id) {
+
+        if (itemPedidoRepository.existsByProdutoId(id)) {
+            throw new RuntimeException(
+                    "Não é possível excluir este produto, pois ele está sendo utilizado em um pedido."
+            );
+        }
+
         produtoRepository.deleteById(id);
     }
 

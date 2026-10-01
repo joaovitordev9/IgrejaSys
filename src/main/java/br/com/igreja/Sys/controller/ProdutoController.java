@@ -5,6 +5,7 @@ import br.com.igreja.Sys.dto.ProdutoResponse;
 import br.com.igreja.Sys.service.ProdutoService;
 import jakarta.validation.Valid;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -41,8 +42,20 @@ public class ProdutoController {
     }
 
     @DeleteMapping("{Id}")
-    public void deletar(@PathVariable long Id){
-        produtoService.deletar(Id);
+    public ResponseEntity<?> deletar(@PathVariable Long Id) {
+
+        try {
+
+            produtoService.deletar(Id);
+
+            return ResponseEntity.noContent().build();
+
+        } catch (RuntimeException e) {
+
+            return ResponseEntity
+                    .badRequest()
+                    .body(e.getMessage());
+        }
     }
 
 }

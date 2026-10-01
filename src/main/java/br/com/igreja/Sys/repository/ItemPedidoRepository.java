@@ -23,4 +23,5 @@ public interface ItemPedidoRepository extends JpaRepository<ItemPedido, Long> {
         ORDER BY SUM(i.quantidade) DESC
     """)
     List<RelatorioQuantidadeProdutoVendidoResponse> buscarQuantidadeProdutosVendidos(Long idFesta);
+    boolean existsByProdutoId(Long id);
 }

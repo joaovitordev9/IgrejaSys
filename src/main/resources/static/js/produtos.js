@@ -176,23 +176,51 @@ function putProduto() {
         });
 }
 
-function deleteProduto(){
-    const produtoId = btnModalExcluirConfirmar.dataset.idProdutoExcluido;
+async function deleteProduto() {
 
-    fetch( `/festas/${festaId}/produtos/${produtoId}`,{
-        method: "DELETE"
-    }).then(function (response){
-        if (!response.ok){
-            throw new Error("Erro ao excluir produto");
+    const produtoId =
+        btnModalExcluirConfirmar.dataset.idProdutoExcluido;
+
+    try {
+
+        const response = await fetch(
+            `/festas/${festaId}/produtos/${produtoId}`,
+            {
+                method: "DELETE"
+            }
+        );
+
+        if (!response.ok) {
+
+            const mensagem =
+                await response.text();
+
+            throw new Error(mensagem);
         }
-    })
 
-    const indice = produtos.findIndex(function (produto) {
-        return produto.id == produtoId;
-    });
+        const indice =
+            produtos.findIndex(produto =>
+                produto.id == produtoId
+            );
 
-    produtos.splice(indice, 1);
-};
+        produtos.splice(indice, 1);
+
+        renderizarProdutos(produtos);
+
+        fechaModaldeleteProduto();
+
+    } catch (erro) {
+
+        document.getElementById("mensagemExclusao")
+            .textContent =
+            erro.message ||
+            "Não foi possível excluir o produto.";
+
+        btnModalExcluirConfirmar.style.display = "none";
+
+        btnModalExcluirCancelar.textContent = "OK";
+    }
+}
 
 
 function abreModalInfoProduto(titulo) {
@@ -209,9 +237,23 @@ function fechaModalInfoProduto() {
     modalInfoProduto.style.display = "none";
 }
 
-function abreModaldeleteProduto(titulo) {
-    modalPrincipalProdutos.style.display = "flex";
-    modalProdutosExcluir.style.display = "flex";
+function abreModaldeleteProduto() {
+
+    document.getElementById("mensagemExclusao")
+        .textContent =
+        "Tem certeza que deseja excluir este produto?";
+
+    btnModalExcluirConfirmar.style.display =
+        "inline-block";
+
+    btnModalExcluirCancelar.textContent =
+        "Cancelar";
+
+    modalPrincipalProdutos.style.display =
+        "flex";
+
+    modalProdutosExcluir.style.display =
+        "flex";
 
     btnModalExcluirCancelar.focus();
 }
@@ -341,9 +383,7 @@ btnModalExcluirCancelar.addEventListener("click", function() {
 
 btnModalExcluirConfirmar.addEventListener("click", function() {
     deleteProduto();
-    renderizarProdutos(produtos);
-    fechaModaldeleteProduto();
-})
+});
 
 tabelaProdutos.addEventListener("click", function (evento) {
 
