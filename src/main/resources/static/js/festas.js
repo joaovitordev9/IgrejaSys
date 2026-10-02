@@ -30,6 +30,7 @@ const btnConfiguracoes = document.getElementById("btnConfiguracoes");
 const btnFecharConfiguracoes = document.getElementById("btnFecharConfiguracoes");
 const btnAcessarCategoria = document.getElementById("btnAcessarCategoria");
 const btnRelatorios = document.getElementById("btnRelatorios");
+const btnAcessarImpressora = document.getElementById("btnAcessarImpressora");
 
 // CAMPOS DO FORMULÁRIO
 const inputNomeFesta = document.getElementById("nomeFesta");
@@ -361,5 +362,11 @@ btnAlterarFesta.addEventListener("click", function () {
 btnAcessarCategoria.addEventListener("click", function() {
     window.location.href = `/categoria.html`;
 })
+
+btnAcessarImpressora.addEventListener("click", function() {
+    window.location.href = `/impressora.html`;
+})
+
+
 
 getFestas();

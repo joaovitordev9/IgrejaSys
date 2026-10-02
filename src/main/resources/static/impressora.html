@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Impressoras</title>
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/botao.css">
+    <link rel="stylesheet" href="css/modal.css">
+</head>
+
+<body>
+
+    <nav class="barra-navegacao">
+
+        <div class="botao-inicio">
+            Início
+        </div>
+
+        <div class="botao-voltar">
+            Voltar
+        </div>
+
+        <h2 class="titulo-pagina">
+            Impressoras
+        </h2>
+
+        <div class="botao-principal" id="btnAtualizarImpressoras">
+            Atualizar
+        </div>
+
+    </nav>
+
+
+    <div class="corpo">
+
+        <table class="tabela-impressoras">
+
+            <thead>
+
+                <tr>
+                    <th class="coluna-acoes">Ações</th>
+                    <th class="coluna-codigo">Código</th>
+                    <th class="coluna-nome">Nome</th>
+                    <th class="coluna-selecionada">Selecionada</th>
+                </tr>
+
+            </thead>
+
+            <tbody id="tabelaImpressoras">
+
+                <!-- Impressoras serão adicionadas pelo JavaScript -->
+
+            </tbody>
+
+        </table>
+
+
+        <!-- Modal de exclusão -->
+
+        <div class="modal" id="modalPrincipalImpressoras">
+
+            <div class="modal-excluir" id="modalImpressoraExcluir">
+
+                <h2>
+                    Excluir impressora
+                </h2>
+
+                <p>
+                    Tem certeza que deseja excluir esta impressora das
+                    impressoras configuradas?
+                </p>
+
+                <div class="modal-acoes">
+
+                    <button class="btn btn-cancelar" id="btnModalExcluirCancelar">
+                        Cancelar
+                    </button>
+
+                    <button class="btn btn-excluir" id="btnModalExcluirConfirmar">
+                        Excluir
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <script src="js/script.js"></script>
+    <script src="js/impressora.js"></script>
+
+</body>
+
+</html>

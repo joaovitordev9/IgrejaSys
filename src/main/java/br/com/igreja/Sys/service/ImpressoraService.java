@@ -1,25 +1,50 @@
 package br.com.igreja.Sys.service;
 
+import br.com.igreja.Sys.dto.CategoriaResponse;
+import br.com.igreja.Sys.dto.ImpressoraResponse;
 import br.com.igreja.Sys.entity.ItemPedido;
 import br.com.igreja.Sys.entity.Pedido;
+import br.com.igreja.Sys.model.Impressora;
+import jakarta.annotation.PostConstruct;
+import lombok.Getter;
+
 import org.springframework.stereotype.Service;
 
-import javax.print.*;
+import java.util.ArrayList;
+import java.util.List;
 
+import javax.print.*;
+import javax.print.attribute.standard.PrinterIsAcceptingJobs;
+
+@Getter 
 @Service
 public class ImpressoraService {
+
+    private List<Impressora> impressoras = new ArrayList<>();
+    private Impressora impressoraSelecionada;
+
+    public boolean impressoraDisponivel(PrintService impressora) {
+
+        if (impressora == null) {
+            return false;
+        }
+
+        PrinterIsAcceptingJobs estado =
+                impressora.getAttribute(PrinterIsAcceptingJobs.class);
+
+        return estado != null &&
+                estado.equals(PrinterIsAcceptingJobs.ACCEPTING_JOBS);
+    }
 
     public void imprimir(String texto) {
 
         try {
-
-            PrintService impressora = PrintServiceLookup.lookupDefaultPrintService();
-
-            if (impressora == null) {
+            if (!impressoraDisponivel(impressoraSelecionada.getImpressora())) {
                 throw new RuntimeException("Nenhuma impressora encontrada");
             }
+            System.out.println("imprimiu sabosta");
 
-            DocPrintJob job = impressora.createPrintJob();
+            DocPrintJob job = impressoraSelecionada.getImpressora().createPrintJob();
 
             byte[] textoBytes = texto.getBytes();
 
@@ -44,6 +69,9 @@ public class ImpressoraService {
 
     public void imprimirPedido(Pedido pedido) {
 
+        if (impressoraSelecionada == null) {
+            return;
+        }
         int numeroFicha = 1;
 
         for (ItemPedido item : pedido.getItens()) {
@@ -52,15 +80,15 @@ public class ImpressoraService {
 
                 String ficha =
                         "================================\n" +
-                                "FICHA #" +
-                                pedido.getId() +
-                                "-" +
-                                numeroFicha +
-                                "\n\n" +
-                                item.getProduto().getNome().toUpperCase() +
-                                "\n" +
-                                "================================\n" +
-                                "\n\n\n";
+                        "FICHA #" +
+                        pedido.getId() +
+                        "-" +
+                        numeroFicha +
+                        "\n\n" +
+                        item.getProduto().getNome().toUpperCase() +
+                        "\n" +
+                        "================================\n" +
+                        "\n\n\n";
 
                 imprimir(ficha);
                 try {
@@ -70,6 +98,50 @@ public class ImpressoraService {
                 }
 
                 numeroFicha++;
+            }
+        }
+    }
+
+
+    public List<ImpressoraResponse> listar() {
+        this.impressoras.clear();
+        long ultId = 1;
+
+        PrintService[] impressoras =
+                PrintServiceLookup.lookupPrintServices(null, null);
+
+        for (PrintService impressora : impressoras) {
+
+            Impressora response = new Impressora();
+            response.setId(ultId++);
+            response.setImpressora(impressora);
+
+            response.setSelecionada(
+                    impressoraSelecionada != null &&
+                    impressoraSelecionada.getNome().equals(impressora.getName())
+            );
+
+            this.impressoras.add(response);
+        }
+
+        return this.impressoras.stream()
+                .map(ImpressoraResponse::fromEntity)
+                .toList();
+    }
+
+    public void selecionarImpressora(long id) {
+        if (id == -1) {
+            impressoraSelecionada = null;
+            return;
+        }
+
+        for (Impressora impressora : impressoras) {
+            if (impressora.getId() == id) {
+                impressora.setSelecionada(true);
+                impressoraSelecionada = impressora;
+            }
+            else {
+                impressora.setSelecionada(false);
             }
         }
     }
