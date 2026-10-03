@@ -127,6 +127,7 @@ function adicionarProduto(produtoId, nome, preco) {
     if (itemExistente) {
 
         itemExistente.quantidade++;
+        
 
     } else {
 
@@ -138,6 +139,7 @@ function adicionarProduto(produtoId, nome, preco) {
         });
     }
 
+    calcularTroco();
     renderizarPedido();
 }
 
@@ -242,11 +244,18 @@ function renderizarPedido() {
 function cancelarPedido() {
 
     pedido = [];
+     const campo =
+            document.getElementById("valor-recebido");
+    campo.value = 0;
+
+    calcularTroco();
 
     renderizarPedido();
 }
 
 async function finalizarPedido() {
+
+    const troco = document.getElementById("troco");
 
     if (pedido.length === 0) {
         alert("Adicione pelo menos um produto.");
@@ -276,6 +285,9 @@ async function finalizarPedido() {
 
             return;
         }
+
+        campo.value = 0;
+        calcularTroco()
     }
 
     const pedidoRequest = {
@@ -352,6 +364,8 @@ valorRecebido.addEventListener("input", calcularTroco);
 // EVENTOS
 radioDinheiro.addEventListener("change", () => {
     areaTroco.style.display = "block";
+    document.getElementById("valor-recebido").focus();
+
 });
 
 radioPix.addEventListener("change", () => {

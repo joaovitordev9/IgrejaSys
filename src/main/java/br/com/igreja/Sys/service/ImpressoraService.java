@@ -1,11 +1,9 @@
 package br.com.igreja.Sys.service;
 
-import br.com.igreja.Sys.dto.CategoriaResponse;
 import br.com.igreja.Sys.dto.ImpressoraResponse;
 import br.com.igreja.Sys.entity.ItemPedido;
 import br.com.igreja.Sys.entity.Pedido;
 import br.com.igreja.Sys.model.Impressora;
-import jakarta.annotation.PostConstruct;
 import lombok.Getter;
 
 import org.springframework.stereotype.Service;
@@ -46,10 +44,11 @@ public class ImpressoraService {
 
             DocPrintJob job = impressoraSelecionada.getImpressora().createPrintJob();
 
-            byte[] textoBytes = texto.getBytes();
+            byte[] textoBytes = texto.getBytes("CP860");
 
             byte[] corteParcial = new byte[] {
-                    0x1D, 0x56, 0x01
+                0x0A, 0x0A, 0x0A,
+                0x1D, 0x56, 0x01
             };
 
             byte[] dados = new byte[textoBytes.length + corteParcial.length];
@@ -72,23 +71,25 @@ public class ImpressoraService {
         if (impressoraSelecionada == null) {
             return;
         }
-        int numeroFicha = 1;
 
         for (ItemPedido item : pedido.getItens()) {
 
             for (int i = 0; i < item.getQuantidade(); i++) {
 
-                String ficha =
-                        "================================\n" +
-                        "FICHA #" +
-                        pedido.getId() +
-                        "-" +
-                        numeroFicha +
-                        "\n\n" +
-                        item.getProduto().getNome().toUpperCase() +
-                        "\n" +
-                        "================================\n" +
-                        "\n\n\n";
+               String ficha =
+                    "\u001B\u0061\u0001" +                    // Centralizar
+                    "================================\n" +
+                    pedido.getFesta().getNome().toUpperCase() + "\n" +
+                    "================================\n" +
+
+                    "\u001B\u0045\u0001" +                    // Negrito
+                    "\u001D\u0021\u0011" +                    // 2x largura + 2x altura
+                    item.getProduto().getNome().toUpperCase() +
+                    "\n" +
+
+                    "\u001D\u0021\u0000" +                    // Tamanho normal
+                    "\u001B\u0045\u0000" +                    // Negrito OFF
+                    "================================\n\n\n";
 
                 imprimir(ficha);
                 try {
@@ -97,11 +98,11 @@ public class ImpressoraService {
                     throw new RuntimeException(e);
                 }
 
-                numeroFicha++;
             }
         }
     }
 
+    
 
     public List<ImpressoraResponse> listar() {
         this.impressoras.clear();
